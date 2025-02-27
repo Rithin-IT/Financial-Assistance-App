@@ -3,7 +3,7 @@
 function UserDetails(){
 
     return <div>
-            <h1>UserDetails new</h1>
+            <h1>UserDetails new welcome</h1>
             </div>
 }
 
