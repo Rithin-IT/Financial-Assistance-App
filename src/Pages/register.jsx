@@ -3,7 +3,7 @@
 function Register(){
 
     return <div>
-            <h1>Register</h1>
+            <h1>Register new</h1>
             </div>
 }
 
