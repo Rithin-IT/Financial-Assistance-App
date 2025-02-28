@@ -59,9 +59,9 @@ function Register(){
         Name
         <Form.Control type="text" placeholder="enter your name" onChange={(e)=>setInputValue({...inputValue,name:e.target.value})} ></Form.Control> 
         Email
-        <Form.Control type="text" placeholder="enter your email" onChange={(e)=>setInputValue({...inputValue,email:e.target.value})} ></Form.Control> 
+        <Form.Control type="email" placeholder="enter your email" onChange={(e)=>setInputValue({...inputValue,email:e.target.value})} ></Form.Control> 
         Password
-        <Form.Control type="text" placeholder="enter your password" onChange={(e)=>setInputValue({...inputValue,password:e.target.value})} ></Form.Control>
+        <Form.Control type="password" placeholder="enter your password" onChange={(e)=>setInputValue({...inputValue,password:e.target.value})} ></Form.Control>
         phonenumber
         <Form.Control type="text" placeholder="enter your phonenumber" onChange={(e)=>setInputValue({...inputValue,phonenumber:e.target.value})} ></Form.Control> 
 
