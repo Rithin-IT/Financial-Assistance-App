@@ -6,15 +6,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
-import { setLoginUsers } from '../Redux/Slices/login.js';
+import { setLoginUsers } from '../Redux/Slices/login';
 
 
 
 function Login() {
 
-    const loginGlobalState = useSelector((state) => state.login.loginUsers);
+    const financeGlobalState = useSelector((state) => state.login.loginUsers)
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const [loginDetails, setLoginDetails] = useState({
         email: "",
         password: ""
@@ -22,7 +22,11 @@ function Login() {
    
     const submit = () => {
                 
-            
+        if (loginDetails.email === "" || loginDetails.password === "") {
+            alert("Please Fill");
+            return;
+        }
+        
         const formData = new FormData();
         formData.append("email", loginDetails.email);
         formData.append("password", loginDetails.password);
@@ -36,18 +40,41 @@ function Login() {
                 if (response.data.status === "success") {
                   
                     alert("Login Successful");
-                    dispatch(setLoginUsers(response.data));
+                    dispatch(setLoginUsers(response.data.data));
+                    
                     navigate("/userdetails");
+                       
+            }
+           
+            else {
+               alert("Email or Password not found, Please Register");
+               navigate("/register")
+           }
+       })
+}
+
+return <div>
+           
+             Email:
+        <Form.Control type="email" placeholder="Enter Email " value={loginDetails.email} onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
+
+        Password:
+
+        <Form.Control type="password" placeholder="Enter Password" value={loginDetails.password} onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
+
+    <Button variant="success" onClick={submit}>Login</Button>
+
+
+    </div>
+    }
+export default Login;
+
+
+                 
                   
                     
                 
-               
-            }
-             else {
-                alert("Invalid Credentials");
-            }
-        })
-}
+            
    
     
 
@@ -66,23 +93,7 @@ function Login() {
 
 
 
-    return <div>
-              
-        Email:
-        <Form.Control type="email" placeholder="Enter email id"
-            value={loginDetails.email}
-            onChange={(e) => setLoginDetails({ ...loginDetails, email: e.target.value })} />
-
-        Password:
-        <Form.Control type="password" placeholder="Enter password"
-            value={loginDetails.password}
-            onChange={(e) => setLoginDetails({ ...loginDetails, password: e.target.value })} />
-
-        <Button variant="success" onClick={submit}>Login</Button>
-    </div>
-}
-export default Login;
-
+   
 
 
 
