@@ -1,25 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const registerSlice = createSlice({
-  name: 'financialassist',
+  name: 'register',
   initialState: {
-    value: 0,
+    registerList:[],
   },
   reducers: {
-    increment: (state) => {
-
-      state.value += 1
-    },
-    decrement: (state) => {
-      state.value -= 1
-    },
-    incrementByAmount: (state, action) => {
-      state.value += action.payload
+    setRegisterList: (state,action)=>{
+      state.registerList = action.payload
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = registerSlice.actions
+export const { setRegisterList } = registerSlice.actions
 
 export default registerSlice.reducer
