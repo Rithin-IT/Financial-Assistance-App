@@ -2,12 +2,16 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container } from 'react-bootstrap';
+import { Button, Container, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserlist } from '../Redux/Slices/userDetails';
 import img from '../assets/image4.jpg'
 import InputGroup from 'react-bootstrap/InputGroup';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import axios from 'axios'
+
 
 
 function UserDetails() {
@@ -16,7 +20,7 @@ function UserDetails() {
 
     const [skillsValue, setSkillsValue] = useState([])
 
-    const [languageValue, setLanguageValue] = useState([])
+    const [languagesValue, setLanguageValue] = useState([])
 
     const [educationValue, setEducationValue] = useState({
         course_name: "",
@@ -25,7 +29,7 @@ function UserDetails() {
         course_percentage: ""
     })
 
-    const [userGoal,setUserGoal] = useState([])
+    const [userGoal, setUserGoal] = useState([])
 
     const dispatch = useDispatch()
 
@@ -54,28 +58,33 @@ function UserDetails() {
         goals: []
     })
 
-    // useEffect (()=>{
-    //     getApi()
-    // },[])
+    useEffect(() => {
+        getApi()
+    }, [])
 
     const submitBtn = () => {
-        let sendData = [...userGlobalState.userDataList, inputvalue]
-        dispatch(setUserlist(sendData))
-        console.log(inputvalue)
+        // let sendData = [...userGlobalState.userDataList, inputvalue]
+        // dispatch(setUserlist(sendData))
+        // console.log(inputvalue)
 
-    //     const formData = new FormData();
-    //                 formData.append("user_id",4);
-    //                 formData.append("data",JSON.stringify(userInputValue))
+        const formData = new FormData();
+        formData.append("user_id", 3);
+        formData.append("data", JSON.stringify(inputvalue))
 
-    //                 axios.post('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
-    //                 console.log(res)
-    //                 });
-    // }
+        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
+            .then((res) => {
+                console.log(res)
+            });
+    }
 
-    // const getApi = ()=>{
-    //     axios.get('https://agaram.academy/api/b4/action.php?request=ai_carrier_update_user_profile',formData).then((res)=>{
-    //         console.log(res)
-    //     })
+    const getApi = () => {
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=1&user_id=3')
+            .then((res) => {
+                let getData = res.data.data.data
+                console.log(getData)
+                setInputValue(JSON.parse(getData))
+
+            })
     }
 
     const addSkillsBtn = () => {
@@ -92,11 +101,11 @@ function UserDetails() {
     }
 
     const addLanguageBtn = () => {
-        if (languageValue == "") {
+        if (languagesValue == "") {
             alert("please enter value")
         }
         else {
-            let x = [languageValue]
+            let x = [languagesValue]
             let y = [...inputvalue.languages, ...x]
 
             setInputValue({ ...inputvalue, languages: y })
@@ -124,15 +133,15 @@ function UserDetails() {
 
     }
 
-    const addGoalBtn = ()=>{
-        if(userGoal == ""){
+    const addGoalBtn = () => {
+        if (userGoal == "") {
             alert("please Enter Value")
         }
-        else{
+        else {
             let x = [userGoal]
             let y = [...inputvalue.goals, ...x]
 
-            setInputValue({...inputvalue,goals:y})
+            setInputValue({ ...inputvalue, goals: y })
             setUserGoal("")
         }
     }
@@ -145,12 +154,18 @@ function UserDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "1050px"
+            height: "1120px"
         }}>
+        <Navbar style={{ marginBottom: "4px", width: "100%" }} bg="dark" data-bs-theme="dark">
+            <Container className='mt-25'>
+                <Navbar.Brand href="#home">Pocket Planner</Navbar.Brand>
+                <Nav className="ms-auto">
+                    <Nav.Link href="/update">Update Profile</Nav.Link>
+                </Nav>
+            </Container>
+        </Navbar>
         <Container>
-            <h2 style={{ textAlign: "center" }}>Personal Information</h2>
-
-            <Form style={{ border: "5px solid white", padding:"20px"}}>
+            <Form style={{ border: "5px solid white", padding: "20px" }}>
                 <Row>
                     <Col sm="6">
                         <h3>Personal Details</h3>
@@ -160,14 +175,16 @@ function UserDetails() {
                                 <Form.Control
                                     style={{ backgroundColor: "inherit" }}
                                     type="text"
+                                    value={inputvalue.fatherName}
                                     placeholder="Enter Father Name"
                                     onChange={(e) => setInputValue({ ...inputvalue, fatherName: e.target.value })} />
-                            </Col>  
+                            </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
                             <Form.Label column sm="3" >Mother Name</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Mother Name"
+                                    value={inputvalue.motherName}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, motherName: e.target.value })} />
                             </Col>
@@ -176,6 +193,7 @@ function UserDetails() {
                             <Form.Label column sm="3">Date of Birth</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="date" placeholder="Enter Date of Birth"
+                                    value={inputvalue.DoB}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, DoB: e.target.value })} />
                             </Col>
@@ -192,7 +210,7 @@ function UserDetails() {
                                 </Col>
                                 <Col sm="2" className='mt-2'>
                                     <Form.Check type="radio" label="female" value="female"
-                                         checked={inputvalue.gender == "female"}
+                                        checked={inputvalue.gender == "female"}
                                         onChange={(e) => setInputValue({ ...inputvalue, gender: e.target.value })} />
                                 </Col>
                             </Row>
@@ -218,6 +236,7 @@ function UserDetails() {
                             <Form.Label column sm="3">Spouse Name</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Spouse Name"
+                                    value={inputvalue.spouseName}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, spouseName: e.target.value })} />
                             </Col>
@@ -226,6 +245,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Spouse Working Company</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Spouse Working Company"
+                                    value={inputvalue.spouseWorkingCompany}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, spouseWorkingCompany: e.target.value })} />
                             </Col>
@@ -234,6 +254,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Spouse Yearly Salary</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Spouse Yearly Salary"
+                                    value={inputvalue.spouseYearlySalary}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, spouseYearlySalary: e.target.value })} />
                             </Col>
@@ -242,6 +263,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Children</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Children"
+                                    value={inputvalue.children}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, children: e.target.value })} />
                             </Col>
@@ -250,6 +272,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Current Working Company</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Current Working Company"
+                                    value={inputvalue.currentWorkingCompany}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, currentWorkingCompany: e.target.value })} />
                             </Col>
@@ -258,6 +281,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Salary</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Salary"
+                                    value={inputvalue.salary}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, salary: e.target.value })} />
                             </Col>
@@ -266,6 +290,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Work Experience</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Work Experience"
+                                    value={inputvalue.workExperience}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, workExperience: e.target.value })} />
                             </Col>
@@ -274,7 +299,7 @@ function UserDetails() {
                     </Col>
 
 
-                 
+
 
 
                     <Col sm="6">
@@ -282,6 +307,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Working Hours</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Working Hours"
+                                    value={inputvalue.workingHours}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, workingHours: e.target.value })} />
                             </Col>
@@ -290,6 +316,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Working Shift</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Working Shift"
+                                    value={inputvalue.workingShift}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, workingShift: e.target.value })} />
                             </Col>
@@ -298,6 +325,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Yearly Salary Hike</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Yearly Salary Hike"
+                                    value={inputvalue.yearlySalaryHike}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, yearlySalaryHike: e.target.value })} />
                             </Col>
@@ -306,6 +334,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Monthly Expense</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Monthly Expense"
+                                    value={inputvalue.monthlyExpense}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, monthlyExpense: e.target.value })} />
                             </Col>
@@ -314,6 +343,7 @@ function UserDetails() {
                             <Form.Label column sm="3">Monthly Savings</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Monthly Savings"
+                                    value={inputvalue.monthlySaving}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, monthlySaving: e.target.value })} />
                             </Col>
@@ -322,6 +352,7 @@ function UserDetails() {
                             <Form.Label column sm="3" >Value of Assets</Form.Label>
                             <Col sm="6">
                                 <Form.Control type="number" placeholder="Enter Assets"
+                                    value={inputvalue.assets}
                                     style={{ backgroundColor: "inherit" }}
                                     onChange={(e) => setInputValue({ ...inputvalue, assets: e.target.value })} />
                             </Col>
@@ -366,6 +397,17 @@ function UserDetails() {
                                 </Col>
                             </Row>
                         </Form.Group>
+                        <Table striped bordered hover   >
+                            <thead>
+                                <tr>
+                                    <td>Course Name</td>
+                                    <td>Course Institute</td>
+                                    <td>Course Year</td>
+                                    <td>Course Percentage</td>
+                                </tr>
+                            </thead>
+                        </Table>
+
                         <h3>Skills</h3>
                         <Form.Group as={Row} className="mb-3">
                             <Row>
@@ -382,6 +424,7 @@ function UserDetails() {
                                 </Col>
                             </Row>
                         </Form.Group>
+
                         <h3>Languages</h3>
                         <Form.Group as={Row} className="mb-3">
                             <Row>
@@ -389,7 +432,8 @@ function UserDetails() {
                                     <Form.Label>Languages</Form.Label>
                                 </Col>
                                 <Col sm="6">
-                                    <Form.Control type="text" placeholder="Enter Languages" value={languageValue}
+                                    <Form.Control type="text" placeholder="Enter Languages"
+                                        value={languagesValue}
                                         onChange={(e) => setLanguageValue(e.target.value)}
                                         style={{ backgroundColor: "inherit" }} />
                                 </Col>
@@ -398,31 +442,32 @@ function UserDetails() {
                                 </Col>
                             </Row>
                         </Form.Group>
+
                     </Col>
                 </Row>
-                
+
                 <div>
-                    <h3 style={{textAlign:"center"}}>Goals</h3>
-                    <Form.Group as={Row} className="mb-3 mt-4" style={{marginLeft:"350px"}}>
+                    <h3 style={{ textAlign: "center" }}>Goals</h3>
+                    <Form.Group as={Row} className="mb-3 mt-4" style={{ marginLeft: "350px" }}>
                         <Row>
                             <Col sm="1">
-                            <InputGroup.Text>
-                                1.
-                            </InputGroup.Text>
+                                <InputGroup.Text>
+                                    1.
+                                </InputGroup.Text>
                             </Col>
-                            <Col sm="6">  
+                            <Col sm="6">
                                 <Form.Control type='text'
-                                onChange={(e)=>setUserGoal(e.target.value)}
-                                 value={userGoal} />                  
+                                    onChange={(e) => setUserGoal(e.target.value)}
+                                    value={userGoal} />
                             </Col>
-                            <Col sm= "4">
+                            <Col sm="4">
                                 <Button variant='dark' onClick={addGoalBtn}>Add</Button>
                             </Col>
                         </Row>
-                    </Form.Group>  
-                      
-                        
-                          
+                    </Form.Group>
+
+
+
 
                 </div>
 
