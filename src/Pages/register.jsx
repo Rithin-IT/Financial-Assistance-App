@@ -50,14 +50,6 @@ function Register() {
                         console.log(res)
                     })
 
-
-
-                // dispatch(setRegisterList(data));
-                // console.log(data)
-
-                // setInputValue({ name: "", email: "", password: "" });
-                // alert("Regitered Sucess");
-                // navigate('/login')
             }
         }
         else {
@@ -75,7 +67,9 @@ function Register() {
     }>
 
 
-        <h1 style={{ textAlign:"center"}}>Register</h1><br></br>
+        <h1 style={{ textAlign:"center"
+
+        }}>Register</h1><br></br>
         <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "350px", borderRadius: "15px" ,marginLeft:"500px", background:"transparent", boxShadow: "0 0 10px"}}>
             <Form style={{ padding: "45px" }}>
                 <Form.Label>Name</Form.Label>
