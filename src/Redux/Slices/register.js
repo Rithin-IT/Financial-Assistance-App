@@ -3,10 +3,10 @@ import { createSlice } from '@reduxjs/toolkit'
 export const registerSlice = createSlice({
   name: 'register',
   initialState: {
-    registerList:[],
+      registerList:{},
   },
   reducers: {
-    setRegisterList: (state,action)=>{
+    setRegisterList: (state, action) => {
       state.registerList = action.payload
     },
   },
