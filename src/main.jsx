@@ -5,6 +5,7 @@ import App from './App.jsx'
 import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
+import Finance_ai from './Pages/finance_ai.jsx'
 
 
 import { Provider } from 'react-redux'
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/userdetails",
     element:(<UserDetails/>),
+  },
+  {
+    path: "/finance",
+    element:(<Finance_ai/>),
   },
   
 ]);
