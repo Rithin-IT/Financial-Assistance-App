@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
-import UserDetails from './Pages/user_details.jsx'
+import Userinfo from './Pages/user_info/user_info.jsx'
 
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
@@ -25,9 +25,13 @@ const router = createBrowserRouter([
     path: "/register",
     element:(<Register/>),
   },
+  // {
+  //   path: "/userdetails",
+  //   element:(<UserDetails/>),
+  // },
   {
-    path: "/userdetails",
-    element:(<UserDetails/>),
+    path: "/userinfo",
+    element:(<Userinfo/>),
   },
 ]);
 
