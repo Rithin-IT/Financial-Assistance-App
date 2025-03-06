@@ -2,7 +2,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Container, Table } from 'react-bootstrap';
+import { Button, CloseButton, Container, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserlist } from '../Redux/Slices/userDetails';
@@ -41,7 +41,7 @@ function UserDetails() {
         maritalStatus: "",
         spouseName: "",
         spouseWorkingCompany: "",
-        spouseYearlySalary: "",
+        spouseSalary: "",
         children: "",
         currentWorkingCompany: "",
         salary: "",
@@ -146,6 +146,25 @@ function UserDetails() {
         }
     }
 
+    const deleteSkills = (v) => {
+        let del = inputvalue.skills.filter((items) => items != v)
+        setInputValue({ ...inputvalue, skills: del })
+    }
+
+    const deleteLanguages = (v) => {
+        let del = inputvalue.languages.filter((items) => items != v)
+        setInputValue({ ...inputvalue, languages: del })
+    }
+
+    const deleteEducation = (v) => {
+        let del = inputvalue.education.filter((items) => items != v)
+        setInputValue({ ...inputvalue, education: del })
+    }
+
+    const deleteGoals = (v)=>{
+        let del = inputvalue.goals.filter((items)=> items != v )
+        setInputValue({...inputvalue,goals:del})
+    }
 
 
     return <div style={
@@ -154,13 +173,13 @@ function UserDetails() {
             backgroundSize: "cover",
             backgroundAttachment: "revert",
             backgroundRepeat: "no-repeat",
-            height: "1120px"
+            maxHeight: "2000px"
         }}>
         <Navbar style={{ marginBottom: "4px", width: "100%" }} bg="dark" data-bs-theme="dark">
             <Container className='mt-25'>
                 <Navbar.Brand href="#home">Pocket Planner</Navbar.Brand>
                 <Nav className="ms-auto">
-                    <Nav.Link href="/update">Update Profile</Nav.Link>
+                    <Nav.Link href="/update">Edit Profile</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
@@ -251,12 +270,12 @@ function UserDetails() {
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
-                            <Form.Label column sm="3" >Spouse Yearly Salary</Form.Label>
+                            <Form.Label column sm="3" >Spouse Salary</Form.Label>
                             <Col sm="6">
-                                <Form.Control type="number" placeholder="Enter Spouse Yearly Salary"
-                                    value={inputvalue.spouseYearlySalary}
+                                <Form.Control type="number" placeholder="Enter Spouse Salary"
+                                    value={inputvalue.spouseSalary}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, spouseYearlySalary: e.target.value })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, spouseSalary: e.target.value })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" >
@@ -298,9 +317,7 @@ function UserDetails() {
 
                     </Col>
 
-
-
-
+                {/* column 2nd part */}
 
                     <Col sm="6">
                         <Form.Group as={Row} className="mb-3" >
@@ -404,8 +421,20 @@ function UserDetails() {
                                     <td>Course Institute</td>
                                     <td>Course Year</td>
                                     <td>Course Percentage</td>
+                                    <td>Delete</td>
                                 </tr>
                             </thead>
+                            <tbody>
+                                {inputvalue.education.map((v) =>
+                                    <tr>
+                                        <td>{v.course_name}</td>
+                                        <td>{v.course_institute}</td>
+                                        <td>{v.course_year}</td>
+                                        <td>{v.course_percentage}</td>
+                                        <td><Button variant='dark' onClick={() => deleteEducation(v)}>del</Button></td>
+                                    </tr>
+                                )}
+                            </tbody>
                         </Table>
 
                         <h3>Skills</h3>
@@ -417,7 +446,14 @@ function UserDetails() {
                                 <Col sm="6">
                                     <Form.Control type="text" value={skillsValue}
                                         onChange={(e) => setSkillsValue(e.target.value)} placeholder=" Enter Skills"
-                                        style={{ backgroundColor: "inherit" }} />
+                                        style={{ backgroundColor: "inherit" }}
+                                    />
+                                    <ul>
+                                        {inputvalue.skills.map((v) =>
+                                            <li>{v}<CloseButton
+                                                onClick={() => deleteSkills(v)} /></li>
+                                        )}
+                                    </ul>
                                 </Col>
                                 <Col sm="2">
                                     <Button variant='dark' onClick={addSkillsBtn}>Add</Button>
@@ -436,7 +472,14 @@ function UserDetails() {
                                         value={languagesValue}
                                         onChange={(e) => setLanguageValue(e.target.value)}
                                         style={{ backgroundColor: "inherit" }} />
+                                    <ul>
+                                        {inputvalue.languages.map((v) =>
+                                            <li>{v}<CloseButton
+                                                onClick={() => deleteLanguages(v)} /></li>
+                                        )}
+                                    </ul>
                                 </Col>
+
                                 <Col sm="2">
                                     <Button onClick={addLanguageBtn} variant='dark' >Add</Button>
                                 </Col>
@@ -459,19 +502,23 @@ function UserDetails() {
                                 <Form.Control type='text'
                                     onChange={(e) => setUserGoal(e.target.value)}
                                     value={userGoal} />
+                                <ul>
+                                    {inputvalue.goals.map((v) =>
+                                        <li>{v}<CloseButton
+                                            onClick={() => deleteGoals(v)} /></li>
+                                    )}
+                                </ul>
                             </Col>
                             <Col sm="4">
                                 <Button variant='dark' onClick={addGoalBtn}>Add</Button>
                             </Col>
+
                         </Row>
                     </Form.Group>
-
-
-
-
                 </div>
 
                 <Button onClick={submitBtn} variant='dark' size='lg' style={{ marginLeft: "595px" }}>Submit</Button>
+
             </Form>
         </Container>
     </div>
