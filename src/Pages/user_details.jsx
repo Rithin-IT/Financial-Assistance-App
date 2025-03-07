@@ -4,8 +4,6 @@ import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, CloseButton, Container, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserlist } from '../Redux/Slices/userDetails';
 import img from '../assets/image4.jpg'
 import InputGroup from 'react-bootstrap/InputGroup';
 import Nav from 'react-bootstrap/Nav';
@@ -16,7 +14,6 @@ import axios from 'axios'
 
 function UserDetails() {
 
-    const userGlobalState = useSelector((state) => state.userDetails)
 
     const [skillsValue, setSkillsValue] = useState([])
 
@@ -30,8 +27,6 @@ function UserDetails() {
     })
 
     const [userGoal, setUserGoal] = useState([])
-
-    const dispatch = useDispatch()
 
     const [inputvalue, setInputValue] = useState({
         fatherName: "",
@@ -63,18 +58,60 @@ function UserDetails() {
     }, [])
 
     const submitBtn = () => {
-        // let sendData = [...userGlobalState.userDataList, inputvalue]
-        // dispatch(setUserlist(sendData))
-        // console.log(inputvalue)
 
-        const formData = new FormData();
-        formData.append("user_id", 3);
-        formData.append("data", JSON.stringify(inputvalue))
+        if (inputvalue.fatherName.trim() == "" ||
+            inputvalue.motherName.trim() == "" ||
+            inputvalue.DoB.trim() == "" ||
+            inputvalue.gender.trim() == "" ||
+            inputvalue.maritalStatus.trim() == "" ||
+            inputvalue.spouseName.trim() == "" ||
+            inputvalue.spouseWorkingCompany.trim() == "" ||
+            inputvalue.spouseSalary.trim() == "" ||
+            inputvalue.children.trim() == "" ||
+            inputvalue.currentWorkingCompany.trim() == "" ||
+            inputvalue.salary.trim() == "" ||
+            inputvalue.workExperience.trim() == "" ||
+            inputvalue.workingHours.trim() == "" ||
+            inputvalue.workingShift.trim() == "" ||
+            inputvalue.yearlySalaryHike.trim() == "" ||
+            inputvalue.monthlyExpense.trim() == "" ||
+            inputvalue.monthlySaving.trim() == "" ||
+            inputvalue.assets.trim() == ""
+        ) {
+            alert("Please Fill Value")
+        }
+        else if (inputvalue.fatherName == "" ||
+            inputvalue.motherName == "" ||
+            inputvalue.DoB == "" ||
+            inputvalue.gender == "" ||
+            inputvalue.maritalStatus == "" ||
+            inputvalue.spouseName == "" ||
+            inputvalue.spouseWorkingCompany == "" ||
+            inputvalue.spouseSalary == "" ||
+            inputvalue.children == "" ||
+            inputvalue.currentWorkingCompany == "" ||
+            inputvalue.salary == "" ||
+            inputvalue.workExperience == "" ||
+            inputvalue.workingHours == "" ||
+            inputvalue.workingShift == "" ||
+            inputvalue.yearlySalaryHike == "" ||
+            inputvalue.monthlyExpense == "" ||
+            inputvalue.monthlySaving == "" ||
+            inputvalue.assets == "") {
+            alert("Please Enter value")
+        }
+        else {
+            alert("Submitted Successfully")
+            const formData = new FormData();
+            formData.append("user_id", 3);
+            formData.append("data", JSON.stringify(inputvalue))
 
-        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
-            .then((res) => {
-                console.log(res)
-            });
+            axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
+                .then((res) => {
+                    console.log(res)
+                });
+        }
+
     }
 
     const getApi = () => {
@@ -88,7 +125,10 @@ function UserDetails() {
     }
 
     const addSkillsBtn = () => {
-        if (skillsValue == "") {
+        if (skillsValue.trim() == "") {
+            alert("please fill value")
+        }
+        else if (skillsValue == "") {
             alert("please enter value")
         }
         else {
@@ -101,7 +141,10 @@ function UserDetails() {
     }
 
     const addLanguageBtn = () => {
-        if (languagesValue == "") {
+        if (languagesValue.trim() == "") {
+            alert("please fill value")
+        }
+        else if (languagesValue == "") {
             alert("please enter value")
         }
         else {
@@ -115,7 +158,10 @@ function UserDetails() {
     }
 
     const addEducationValue = () => {
-        if (educationValue.course_name == "" || educationValue.course_institute == "" || educationValue.course_year == "" || educationValue.course_percentage == "") {
+        if (educationValue.course_name.trim() == "" || educationValue.course_institute.trim() == "" || educationValue.course_year.trim() == "" || educationValue.course_percentage.trim() == "") {
+            alert("please fill value")
+        }
+        else if (educationValue.course_name == "" || educationValue.course_institute == "" || educationValue.course_year == "" || educationValue.course_percentage == "") {
             alert("please enter value")
         }
         else {
@@ -134,7 +180,10 @@ function UserDetails() {
     }
 
     const addGoalBtn = () => {
-        if (userGoal == "") {
+        if (userGoal.trim() == "") {
+            alert("please fill Value")
+        }
+        else if (userGoal == "") {
             alert("please Enter Value")
         }
         else {
@@ -161,9 +210,9 @@ function UserDetails() {
         setInputValue({ ...inputvalue, education: del })
     }
 
-    const deleteGoals = (v)=>{
-        let del = inputvalue.goals.filter((items)=> items != v )
-        setInputValue({...inputvalue,goals:del})
+    const deleteGoals = (v) => {
+        let del = inputvalue.goals.filter((items) => items != v)
+        setInputValue({ ...inputvalue, goals: del })
     }
 
 
@@ -178,9 +227,6 @@ function UserDetails() {
         <Navbar style={{ marginBottom: "4px", width: "100%" }} bg="dark" data-bs-theme="dark">
             <Container className='mt-25'>
                 <Navbar.Brand href="#home">Pocket Planner</Navbar.Brand>
-                <Nav className="ms-auto">
-                    <Nav.Link href="/update">Edit Profile</Nav.Link>
-                </Nav>
             </Container>
         </Navbar>
         <Container>
@@ -317,7 +363,7 @@ function UserDetails() {
 
                     </Col>
 
-                {/* column 2nd part */}
+                    {/* column 2nd part */}
 
                     <Col sm="6">
                         <Form.Group as={Row} className="mb-3" >
@@ -415,13 +461,13 @@ function UserDetails() {
                             </Row>
                         </Form.Group>
                         <Table striped bordered hover   >
-                            <thead>
+                            <thead >
                                 <tr>
-                                    <td>Course Name</td>
-                                    <td>Course Institute</td>
-                                    <td>Course Year</td>
-                                    <td>Course Percentage</td>
-                                    <td>Delete</td>
+                                    <th>Course Name</th>
+                                    <th>Course Institute</th>
+                                    <th>Course Year</th>
+                                    <th>Course Percentage</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -491,15 +537,10 @@ function UserDetails() {
 
                 <div>
                     <h3 style={{ textAlign: "center" }}>Goals</h3>
-                    <Form.Group as={Row} className="mb-3 mt-4" style={{ marginLeft: "350px" }}>
+                    <Form.Group as={Row} className="mb-3 mt-4" style={{ marginLeft: "300px" }}>
                         <Row>
-                            <Col sm="1">
-                                <InputGroup.Text>
-                                    1.
-                                </InputGroup.Text>
-                            </Col>
-                            <Col sm="6">
-                                <Form.Control type='text'
+                            <Col sm="8">
+                                <Form.Control type='text' placeholder='Enter Your Goals'
                                     onChange={(e) => setUserGoal(e.target.value)}
                                     value={userGoal} />
                                 <ul>
@@ -517,7 +558,7 @@ function UserDetails() {
                     </Form.Group>
                 </div>
 
-                <Button onClick={submitBtn} variant='dark' size='lg' style={{ marginLeft: "595px" }}>Submit</Button>
+                <Button onClick={submitBtn} variant='dark' size='lg' style={{ marginLeft: "577px" }}>Submit</Button>
 
             </Form>
         </Container>
