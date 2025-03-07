@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form, Table } from 'react-bootstrap';
+import { Button, Spinner, Form, Table } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+
 import {
   GoogleGenerativeAI,
   HarmCategory,
@@ -13,9 +14,11 @@ import {
 
 
 
+
 function Finance_ai() {
 
   const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
   const cx = "84c171dacf1aa43c1"
   const apiKey = "AIzaSyBzB9VS7Jcpv4gQbmgZevToxvucbs7UtcY"
 
@@ -81,74 +84,66 @@ function Finance_ai() {
       }
     ],
     skills: ["java", "phyton", "html", "css", "react", "redux", "bootstrap"],
-    languages_known: ["tamil", "english"],
-    goals: "Build a new house with budget of 30Lakhs and to reduce loan amount"
-
-
-
-
-
+    languages_known: ["tamil", "english"],    goals: "Build a new house with budget of 30Lakhs and to reduce loan amount"
   }
 
   //   async function run() {
   const run = async () => {
+    setLoading(true);
     const prompt = `
        Based on the name, monthly_savings, monthly_expense, salary, assets and goals 
         What are the steps should I take to reach that goal?
-         provide guidance format as HTML within <div> tag with CSS in Resume format
-  ${JSON.stringify(details)}`;
-
-
-
-
-
-
-    const result = await model.generateContent(prompt);
-    console.log("Summary Response:", result.response.text());
-
-
-    // setSummary(result.response.text().split(/<-C->|<-->|[*]/));
-    const responseText = result.response.text();
+        1.Format the output with  proper HTML5 structure for better semantics and accessibility.
+        2. Uses Bootstrap classes for consistent styling and responsiveness 
+        (e.g., 'container', 'goal-card', 'section-heading').
+        3.Includes custom CSS to enhance visual appeal, improve readability, and highlight key information. 
+        The '.key-info' class and color scheme make important numbers stand out.
+        4.Break down the plan into multiple phases with clear section headings.
+        5.Add tooltips for additional explanations on key terms.
+        6.Provide a disclaimer regarding financial advice and the importance of consulting a professional.
+        7. Output needs to look good like real time web application.
+        8. Output response will be HTML format only and avoid text which are placed outside HTML
+        
+       
+        
+       ${JSON.stringify(details)}`;
+       const result = await model.generateContent(prompt);
+       console.log("Summary Response:", result.response.text());       
+       const responseText = result.response.text();
     setSummary(responseText);
-    // const parts = responseText.split(/[*]|<!-->|<-->|<-C->|<!-->|<->/)
+    setLoading(false);
+    
   }
-
-
-
-  // let formattedSummary = [];
-
-
-
-  //   for (let i = 1; i < parts.length; i+=2) {
-  //     // const [title,content] = parts;
-  //     // const content = parts;
-  //     // if(title && content){
-  //       if (parts[i + 1]) {
-  //       formattedSummary.push({
-  //         title: parts[i].trim(),
-  //         content: parts[i + 1].trim()
-  //       });
-  //     }
-
-  //   }
-
-  //   setSummary(formattedSummary);
-
-
-  //   } 
-
-
-
-  return <div>
-  <Button variant="primary" onClick={run}>
-    Generate Tips
-  </Button>
-  <div dangerouslySetInnerHTML={{ __html: summary }} />
+return <div>
+  <Button variant="success" onClick={run} disabled={loading}>
+  {loading ? (
+          <>
+            <Spinner animation="border" size="sm" /> Generating...
+          </>
+        ) : (
+          "Generate Tips"
+        )}
+    
+  </Button>  
+  <div dangerouslySetInnerHTML={{ __html: summary }} className="mt-3" />
 
 </div>
-
 }
 export default Finance_ai;
+
+
+
+
+  
+
+
+
+
+   
+
+     
+
+ 
 
 
 
