@@ -16,7 +16,9 @@ import {
 
 
 function Finance_ai() {
+  
 
+ 
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const cx = "84c171dacf1aa43c1"
@@ -110,6 +112,7 @@ function Finance_ai() {
        const result = await model.generateContent(prompt);
        console.log("Summary Response:", result.response.text());       
        const responseText = result.response.text();
+        
     setSummary(responseText);
     setLoading(false);
     
