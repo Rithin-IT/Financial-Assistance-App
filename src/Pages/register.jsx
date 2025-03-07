@@ -9,7 +9,7 @@ import axios from 'axios'
 
 
 function Register() {
-    // const navigate=useNavigate()
+    const navigate=useNavigate()
     const dispatch = useDispatch()
 
     const registerGlobalState = useSelector((state) => state.register.registerList)
@@ -20,43 +20,19 @@ function Register() {
         password: ""
     })
     const userRegister = () => {
+        const formData = new FormData();
+        formData.append("name",inputValue.name);
+        formData.append("email",inputValue.email);
+        formData.append("password",inputValue.password);
 
-        if (inputValue.name.trim() && inputValue.email.trim() && inputValue.password.trim()) {
-
-            let duplicate = false
-            registerGlobalState.map((e) => {
-                if (e.email.trim() === inputValue.email.trim()) {
-                    duplicate = true
-
-                }
-            })
-            if (duplicate) {
-                alert("This email already exists");
-                return;
-
-            }
-
-            else {
-
-                let data = [...registerGlobalState, inputValue]
-
-
-                const formData = new FormData();
-                    formData.append("name",inputValue.name);
-                    formData.append("email",inputValue.email);
-                    formData.append("password",inputValue.password);
-
-                    axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register',formData).then((res)=>{
-                        console.log(res)
-                    })
-
-            }
-        }
-        else {
-            alert("please fill all the details")
-        }
+        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register',formData).then((res)=>{
+            // console.log(res)
+            alert("Successfully Registered");
+            navigate('/login');
+            
+        })
+     
     }
-
     return <div style={
         {
             backgroundImage:`url(${web6})`,
@@ -65,10 +41,10 @@ function Register() {
             height:"750px"
         }
     }>
-
-
+    
+    
         <h1 style={{ textAlign:"center"
-
+    
         }}>Register</h1><br></br>
         <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "350px", borderRadius: "15px" ,marginLeft:"500px", background:"transparent", boxShadow: "0 0 10px"}}>
             <Form style={{ padding: "45px" }}>
@@ -82,7 +58,23 @@ function Register() {
                 <Button variant="dark" style={{marginLeft:"150px"}} onClick={userRegister}>Register</Button>
             </Form>
         </div>
-
+    
     </div>
-}
-export default Register
+    }
+    export default Register
+        
+        
+       
+
+
+
+
+      
+
+               
+
+
+                
+        
+
+    
