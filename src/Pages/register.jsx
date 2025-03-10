@@ -21,35 +21,41 @@ function Register() {
     })
     const userRegister = () => {
 
+
+        let name = inputValue.name.trim()
+        let email = inputValue.email.trim()
+        let password = inputValue.password.trim()
+
+
        
-        const formData = new FormData();
-        formData.append("name", inputValue.name);
-        formData.append("email", inputValue.email);
-        formData.append("password", inputValue.password);
+        
+ 
 
-        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register', formData)
-            .then((res) => {
-                // console.log(res)
-                alert("Successfully Registered");
-                navigate('/login');
-            })
-            if(!inputValue.name.trim()|| 
-                !inputValue.email().trim()||
-                !inputValue.password.trim()){
-                    alert("Please fill the input value")
+                if(name && email && password){
+                    alert("Register success")
+                
+
+                const formData = new FormData();
+                formData.append("name", name);
+                formData.append("email", email);
+                formData.append("password", password);
+
+                axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register', formData)
+                    .then((res) => {
+                        console.log(res.data.data)
+
+                    })
+                alert("Register Success")
+                setInputValue({name:"",email:"",password:""})
+                navigate('/login')
                 }
-
-        else if(inputValue.name && inputValue.email && inputValue.password){ 
-           alert("Register Success")
-        setUser({name:"",email:"",password:""})
-         navigate('/login')
-    }
-    else{
-        alert("please fillup")
+            else{
+                alert("please fillup")
+            }
     }
         
 
-}
+
 
 
 return <div style={
@@ -66,6 +72,8 @@ return <div style={
         textAlign: "center"
 
     }}>Register</h1><br></br>
+
+    {JSON.stringify(inputValue)}
     <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "350px", borderRadius: "15px", marginLeft: "500px", background: "transparent", boxShadow: "0 0 10px" }}>
         <Form style={{ padding: "45px" }}>
             <Form.Label>Name</Form.Label>
