@@ -5,8 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, CloseButton, Container, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import img from '../assets/image4.jpg'
-import InputGroup from 'react-bootstrap/InputGroup';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
 
