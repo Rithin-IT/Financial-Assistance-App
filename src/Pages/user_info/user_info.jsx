@@ -33,11 +33,11 @@ function Userinfo() {
   
   return (
     <div>
-      <h5 style={{ textAlign: "center" }}>My Profile</h5>
+      <h4 style={{ textAlign: "center" }}>My Profile</h4>
       <Row>
         <Col sm="5">
           <div style={{ width: "100%", height: "100%" }}>
-            <table style={{ borderCollapse: "collapse", marginLeft: "70px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black",marginTop:"25px" }}>
+            <table style={{ borderCollapse: "collapse", marginLeft: "90px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black",marginTop:"25px" }}>
               <thead style={{ backgroundColor: "teal", color: "white", textAlign: "left", fontWeight: "bold", padding: "15px" }}>
                 <tr>
                   <th style={{ padding: "10px" }}>Key</th>
@@ -122,30 +122,30 @@ function Userinfo() {
         <Col sm="5">
 
           <div>
-            <table style={{ borderCollapse: "collapse", margin: "25px 0", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black", marginLeft: "120px" }}>
+            <table style={{ borderCollapse: "collapse", margin: "25px 0", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black", marginLeft: "160px" }}>
               {/* <Col sm="5"> */}
-              <thead style={{ backgroundColor: "teal", color: "white", textAlign: "left", fontWeight: "bold", padding: "15px" }}>
+              <thead style={{ backgroundColor: "teal", color: "white", textAlign: "center", fontWeight: "bold", padding: "15px" }}>
                 <tr>
                   <th style={{padding:"10px"}}>Course Name</th>
                   <th>Institute Name</th>
                   <th>Year</th>
-                  <th>Place</th>
+                  <th>Percentage</th>
                 </tr>
               </thead>
               <tbody>
                 {inputValue.education?.map((v) =>
                   <tr>
-                    <td style={{ borderBottom: "1px solid gainsboro" }}>{v.course_name}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro" }}>{v.course_institute}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro" }}>{v.course_year}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro" }}>{v.course_percentage}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_name}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_institute}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_year}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_percentage}</td>
                   </tr>
                 )}
               </tbody>
               {/* </Col> */}
             </table>
 
-            <div style={{ marginLeft: "120px", backgroundColor: "teal", width: "100%", height: "500px", borderRadius: "15px", boxShadow: "0 0 20px black" }}>
+            <div style={{ marginLeft: "160px", backgroundColor: "teal", width: "100%", height: "500px", borderRadius: "15px", boxShadow: "0 0 20px black" }}>
               <div style={{ marginLeft: "40px", color: "white",marginTop:"50px",padding:"20px" }}>
 
                 <h3 style={{ marginTop: "40px" }}>Skills</h3>
@@ -164,8 +164,8 @@ function Userinfo() {
                 </ul>
               </div>
             </div>
-            <button style={{marginLeft:"380px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px"}}>Update</button>
-            <button style={{marginLeft:"355px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px"}}>Ask Guidance</button>
+            <button style={{marginLeft:"450px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px",color:"white"}}>Update</button>
+            <button style={{marginLeft:"425px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px",color:"white"}}>Ask Guidance</button>
           </div>
         </Col>
       </Row>
