@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form } from 'react-bootstrap';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setRegisterList } from '../Redux/Slices/register';
 import { useSelector, useDispatch } from 'react-redux';
 import web6 from '../assets/web6.jpg'
 import axios from 'axios'
@@ -73,7 +72,6 @@ return <div style={
 
     }}>Register</h1><br></br>
 
-    {JSON.stringify(inputValue)}
     <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "350px", borderRadius: "15px", marginLeft: "500px", background: "transparent", boxShadow: "0 0 10px" }}>
         <Form style={{ padding: "45px" }}>
             <Form.Label>Name</Form.Label>
