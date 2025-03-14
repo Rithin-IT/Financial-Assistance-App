@@ -7,7 +7,10 @@ import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
 import AdminLogin from './Pages/Admin/adminLogin.jsx'
 import ExpertLogin from './Pages/Expert/expertLogin.jsx'
-import UserLogin from './Pages/userLogin.jsx'
+import ViewExperts from './Pages/viewExperts.jsx'
+import ManageExperts from './Pages/Admin/manageExperts.jsx'
+import RegisterExperts from './Pages/Admin/registerExperts.jsx'
+import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
 
@@ -33,9 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/expert/login",
-    element:(
-      <ExpertLogin />
-    ),
+    element:(<ExpertLogin/>),
   },
   {
     path: "/admin/login",
@@ -43,7 +44,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/user/login",
-    element:(<UserLogin/>),
+    element:(<ViewExperts/>),
+  },
+  {
+    path: "/admin/manageexperts",
+    element:(<ManageExperts/>),
+  },
+  {
+    path: "/admin/registerexperts",
+    element:(<RegisterExperts/>),
+  },
+  {
+    path: "/expert/viewuserdetails",
+    element:(<ViewUserDetails/>),
   },
 ]);
 
