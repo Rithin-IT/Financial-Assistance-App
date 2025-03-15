@@ -40,7 +40,7 @@ function Login() {
                 if (response.data.status === "success") {
                   
                     alert("Login Successful");
-                    dispatch(setLoginUsers(financeGlobalState));
+                
                     
                     navigate("/userdetails");
                        

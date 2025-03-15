@@ -21,25 +21,27 @@ function AdminLogin() {
             return;
         }
 
-        //     const formData = new FormData();
-        //     formData.append("email", loginDetails.email);
-        //     formData.append("password", loginDetails.password);
+            const formData = new FormData();
+            formData.append("email", loginDetails.email);
+            formData.append("password", loginDetails.password);
 
-        //     axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_user_login", formData)
-        //         .then((response) => {
+            axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_admin_login", formData)
+                .then((response) => {
 
-        //             console.log(response);
-
-
-        //             if (response.data.status === "success") {
-
-        //                 alert("Login Successful");
-        //                 navigate("/admin/manageexperts");
-
-        //         }
+                    console.log(response);
 
 
-        //    })
+                    if (response.data.status === "success") {
+
+                        alert("Login Successful");
+                       navigate("/admin/registerexperts");
+
+                }else{
+                    alert("Invalid Output");
+                }
+
+
+           })
     }
     return <div>
         <Container className="d-flex justify-content-center align-items-center vh-100">
