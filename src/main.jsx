@@ -12,6 +12,7 @@ import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
 import UpdateExperts from './Pages/Admin/updateExperts.jsx'
+
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
 
@@ -60,9 +61,10 @@ const router = createBrowserRouter([
     element:(<ViewUserDetails/>),
   },
   {
-    path: "/admin/updateexperts",
+    path: "/updateexperts",
     element:(<UpdateExperts/>),
   },
+ 
 ]);
 
 createRoot(document.getElementById("root")).render(

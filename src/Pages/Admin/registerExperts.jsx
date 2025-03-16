@@ -59,9 +59,9 @@ function RegisterExperts() {
         formData.append("designation", inputValue.designation);
         formData.append("current_organization", inputValue.current_organization);
         formData.append("years_of_experience_in_finance", inputValue.years_of_experience_in_finance);
-        formData.append("areas_of_expertise", inputValue.areas_of_expertise);
+        formData.append("areas_of_expertise", JSON.stringify(inputValue.areas_of_expertise));
 
-        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register', formData)
+        axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_expert_register', formData)
             .then((res) => {
                 console.log(res)
                 alert("Registered Sucessfully");
