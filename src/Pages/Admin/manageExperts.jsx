@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Table, Row, Col } from "react-bootstrap";
+import { Button, Table,Container,Card,Form,Row, Col } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
-function UpdateExperts() {
-    const [viewExperts, setViewExperts] = useState([]);
+function ManageExperts() {
+    const [experts, setExperts] = useState([]);
+    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
+        id: "",
         name: "",
         email: "",
         contact: "",
@@ -14,87 +16,92 @@ function UpdateExperts() {
         current_organization: "",
         years_of_experience_in_finance: "",
         areas_of_expertise: []
+
     });
 
     useEffect(() => {
         getApi();
     }, []);
 
+
     const getApi = () => {
+
         axios.get("https://agaram.academy/api/b4/action.php?request=ai_finance_get_all_experts")
             .then((res) => {
-                console.log("Fetched Experts:", res.data.data);
-                setViewExperts(res.data.data);
+                console.log(res.data.data)
+                setExperts(res.data.data);
+
+
             })
-
-    };
-
-    const update = () => {
-
-        if (
-            !inputValue.name.trim() ||
-            !inputValue.email.trim() ||
-            !inputValue.contact.trim() ||
-            !inputValue.gender.trim() ||
-            !inputValue.designation.trim() ||
-            !inputValue.current_organization.trim() ||
-            !inputValue.years_of_experience_in_finance.trim() ||
-            inputValue.areas_of_expertise.length === 0
-        ) {
-            alert("Please enter all values");
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append("id", inputValue.id);
-        formData.append("expert_data", JSON.stringify(inputValue));
-
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_update_expert_profile", formData)
-            .then((res) => {
-                alert("Updated successfully");
-                getApi();
-            })
-
-    };
-
-    const handleEdit = (expert) => {
-        setInputValue({
-            ...expert,
-            areas_of_expertise: Array.isArray(expert.areas_of_expertise)
-                ? expert.areas_of_expertise
-                : expert.areas_of_expertise?.split(",") || []
-        });
-    };
-
-    const handleDel = (id) => {
-        alert("Are you sure you want to delete?")
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_delete_expert", { expert_id: id })
-            .then(() => {
-                setViewExperts(viewExperts.filter((expert) => expert.id !== id));
-            })
-
     }
 
-    return (
+    
+    const handleEdit = (expert) => {
+        setInputValue(expert)
+      
+    };
+
+
+    const handleDelete = (id) => {
+        const formData = new FormData();
+        formData.append("id", id);
+
+       axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_delete_expert",formData)
+    
+        let del = experts.filter((expert) => expert.id !== id)
+       
+        setExperts(del)
+    }
+    const updateExpert = () => {
+        const formData = new FormData();
+        formData.append("id", inputValue.id);
+        formData.append("name", inputValue.name);
+        formData.append("email", inputValue.email);
+        formData.append("contact", inputValue.contact);
+        formData.append("gender", inputValue.gender);
+        formData.append("designation", inputValue.designation);
+        formData.append("current_organization", inputValue.current_organization);
+        formData.append("years_of_experience_in_finance", inputValue.years_of_experience_in_finance);
+        formData.append("areas_of_expertise", JSON.stringify(inputValue.areas_of_expertise)); 
+    
+        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_update_expert_profile", formData)
+            .then((res) => {
+                console.log(res);
+                if (res.data.status === "success") { 
+                   
+                    alert("Expert updated successfully");
+                    
+                    getApi(); 
+                } 
+            })
+        }
+    
+
+
+ 
+    return <div>
         <div className="container mt-4">
-            <h3>Update Experts Details</h3>
+            <h2 className="mb-4">Manage Experts</h2>
             <Table striped bordered hover>
                 <thead>
                     <tr>
+                        <th>Id</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Contact</th>
                         <th>Gender</th>
                         <th>Designation</th>
-                        <th>Current Organization</th>
-                        <th>Years of Experience</th>
-                        <th>Areas of Expertise</th>
+                        <th>Organization</th>
+                        <th>Experience</th>
+                        <th>Expertise</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {viewExperts.map((expert) => (
-                        <tr key={expert.id}>
+
+                    {experts.map((expert,index) => (
+                        <tr>
+                           <td>{expert.id}</td>
                             <td>{expert.name}</td>
                             <td>{expert.email}</td>
                             <td>{expert.contact}</td>
@@ -102,128 +109,111 @@ function UpdateExperts() {
                             <td>{expert.designation}</td>
                             <td>{expert.current_organization}</td>
                             <td>{expert.years_of_experience_in_finance}</td>
-                            <td>{expert.areas_of_expertise}</td>
+                            <td>{expert.areas_of_expertise.split(/[""]/)}</td>
                             <td>
-                                <Button variant="warning" onClick={() => handleEdit(expert)}>Edit</Button>{" "}
-                                <Button variant="danger" onClick={() => handleDel(expert.id)}>Delete</Button>
+                                <Button variant="warning" className="me-2" onClick={() => handleEdit(expert,index)}>
+                                    Edit
+                                </Button>
+                                <Button variant="danger" onClick={() => handleDelete(expert.id)}>
+                                    Delete
+                                </Button>
                             </td>
                         </tr>
-                    ))}
+                    ))
+                    }
+
                 </tbody>
             </Table>
 
-            <div className="mt-4">
-                <h4>Edit Expert</h4>
+        </div>
+        <Container className="d-flex justify-content-center align-items-center min-vh-100">
+            <Card className="p-4 shadow-lg" style={{ width: "35rem" }}>
+                <h2 className="text-center mb-4">Update Expert</h2>
                 <Form>
-                    <Row>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.name}
-                                    onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    value={inputValue.email}
-                                    onChange={(e) => setInputValue({ ...inputValue, email: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.name}
+                            onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                        />
+                    </Form.Group>
 
-                    <Row>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Contact</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.contact}
-                                    onChange={(e) => setInputValue({ ...inputValue, contact: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Gender</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.gender}
-                                    onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            value={inputValue.email}
+                            onChange={(e) => setInputValue({ ...inputValue, email: e.target.value })}
+                        />
+                    </Form.Group>
 
-                    <Row>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Designation</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.designation}
-                                    onChange={(e) => setInputValue({ ...inputValue, designation: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Current Organization</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.current_organization}
-                                    onChange={(e) => setInputValue({ ...inputValue, current_organization: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Contact</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.contact}
+                            onChange={(e) => setInputValue({ ...inputValue, contact: e.target.value })}
+                        />
+                    </Form.Group>
 
-                    <Row>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Years of Experience</Form.Label>
-                                <Form.Control
-                                    type="number"
-                                    value={inputValue.years_of_experience_in_finance}
-                                    onChange={(e) => setInputValue({ ...inputValue, years_of_experience_in_finance: e.target.value })}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group>
-                                <Form.Label>Areas of Expertise</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    value={inputValue.areas_of_expertise}
-                                    onChange={(e) =>
-                                        setInputValue({
-                                            ...inputValue,
-                                            areas_of_expertise: e.target.value
-                                        })
-                                    }
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Select
+                            value={inputValue.gender}
+                            onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })}
+                        >
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </Form.Select>
+                    </Form.Group>
 
-                    <Button variant="success" className="mt-3" onClick={update}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Designation</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.designation}
+                            onChange={(e) => setInputValue({ ...inputValue, designation: e.target.value })}
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Current Organization</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.current_organization}
+                            onChange={(e) => setInputValue({ ...inputValue, current_organization: e.target.value })}
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Years of Experience</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.years_of_experience_in_finance}
+                            onChange={(e) => setInputValue({ ...inputValue, years_of_experience_in_finance: e.target.value })}
+                        />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Expertise</Form.Label>
+                        <Form.Control
+                            type="text"
+                            value={inputValue.areas_of_expertise}
+                            onChange={(e) => setInputValue({ ...inputValue,areas_of_expertise: e.target.value })}
+                        />
+                    </Form.Group>
+                    <Button variant="success" className="w-100" onClick={updateExpert}>
                         Update
                     </Button>
                 </Form>
-            </div>
-        </div>
-    );
+            </Card>
+        </Container>
+
+
+    </div>
+
 }
 
-export default UpdateExperts;
-
-
-
-
-
+export default ManageExperts;

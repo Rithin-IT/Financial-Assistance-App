@@ -11,7 +11,7 @@ import ViewExperts from './Pages/viewExperts.jsx'
 import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
-import UpdateExperts from './Pages/Admin/updateExperts.jsx'
+// import UpdateExperts from './Pages/Admin/updateExperts.jsx'
 
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
@@ -60,10 +60,10 @@ const router = createBrowserRouter([
     path: "/expert/viewuserdetails",
     element:(<ViewUserDetails/>),
   },
-  {
-    path: "/updateexperts",
-    element:(<UpdateExperts/>),
-  },
+  // {
+  //   path: "/updateexperts",
+  //   element:(<UpdateExperts/>),
+  // },
  
 ]);
 
