@@ -79,7 +79,6 @@ function UserDetails() {
             alert("Please Enter value")
         }
         else {
-            alert("Submitted Successfully")
             const formData = new FormData();
             formData.append("user_id", 3);
             formData.append("data", JSON.stringify(inputvalue))
@@ -87,6 +86,7 @@ function UserDetails() {
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
                 .then((res) => {
                 });
+                alert("Submitted Successfully")
         }
 
     }
