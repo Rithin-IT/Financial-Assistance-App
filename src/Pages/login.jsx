@@ -14,7 +14,7 @@ import { setLoginUsers } from '../Redux/Slices/login';
 
 function Login() {
 
-  
+    const financeGlobalState = useSelector((state) => state.login.loginUsers);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loginDetails, setLoginDetails] = useState({
@@ -42,7 +42,7 @@ function Login() {
                 if (response.data.status === "success") {
                   
                     alert("Login Successful");
-                   
+                    dispatch(setLoginUsers(response.data.data));
                     
                     navigate("/userdetails");
                        
