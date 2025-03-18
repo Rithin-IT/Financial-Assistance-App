@@ -25,11 +25,6 @@ function Register() {
         let email = inputValue.email.trim()
         let password = inputValue.password.trim()
 
-
-       
-        
- 
-
                 if(name && email && password){
                     alert("Register success")
                 
@@ -53,9 +48,6 @@ function Register() {
             }
     }
         
-
-
-
 
 return <div style={
     {
