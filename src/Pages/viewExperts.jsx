@@ -1,10 +1,6 @@
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, CloseButton, Container, Table } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
-import img from '../assets/image4.jpg'
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
 
@@ -12,9 +8,11 @@ import axios from 'axios'
 function viewExperts() {
 
     const [viewExperts, setViewExperts] = useState([])
+    const [user_id, setUserId] = useState()
 
     useEffect(() => {
         getApi()
+       
     }, [])
 
     const getApi = () => {
@@ -27,24 +25,27 @@ function viewExperts() {
 
     }
 
-    const sendRequest = (i) => {
-        // const formData = new FormData();
-        // formData.append("userid", loginDetails.email);
-        // formData.append("expertid", loginDetails.password);
+    const sendRequest = (id) => {
 
-        // axios.post("", formData)
-        //     .then((response) => {
+        const formData = new FormData();
+        formData.append("user_id",user_id );
+        formData.append("expert_id",id );
 
-        //         console.log(response);
+        console.log(formData);
 
-        //         if (response.data.status === "success") {
-        //             alert("Request Send Successfully");
-        //         }
-        //         else {
-        //             alert("failed")
-        //         }
-        //     })
-        console.log(i+1)
+        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_expert_request", formData)
+            .then((response) => {
+
+                console.log(response);
+
+                if (response.data.status === "success") {
+                    alert("Request Send Successfully");
+                }
+                else {
+                    alert("failed")
+                }
+            })
+        
     }
 
 
@@ -67,9 +68,9 @@ function viewExperts() {
                     </tr>
                 </thead>
                 <tbody>
-                    {viewExperts.map((v, i) =>
+                    {viewExperts.map((v,i) =>
                         <tr>
-                            <td>{i + 1}</td>
+                            <td>{v.id}</td>
                             <td>{v.name}</td>
                             <td>{v.contact}</td>
                             <td>{v.email}</td>
@@ -78,7 +79,7 @@ function viewExperts() {
                             <td>{v.current_organization}</td>
                             <td>{v.years_of_experience_in_finance}</td>
                             <td>{v.areas_of_expertise}</td>
-                            <td><Button variant='success' onClick={()=>sendRequest(i)}>Contact Request</Button></td>
+                            <td><Button variant='success' onClick={()=>sendRequest(v.id)}>Contact Request</Button></td>
                         </tr>
                     )}
                 </tbody>
