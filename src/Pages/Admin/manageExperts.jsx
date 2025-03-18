@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 
 function ManageExperts() {
     const [experts, setExperts] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
         id: "",
@@ -37,12 +38,14 @@ function ManageExperts() {
 
     
     const handleEdit = (expert) => {
-        setInputValue(expert)
+        setInputValue(expert);
+        setIsEditing(true);
       
     };
 
 
     const handleDelete = (id) => {
+        alert("Are u sure to Delete?")
         const formData = new FormData();
         formData.append("id", id);
 
@@ -72,6 +75,7 @@ function ManageExperts() {
                     alert("Expert updated successfully");
                     
                     getApi(); 
+                    
                 } 
             })
         }
@@ -126,6 +130,7 @@ function ManageExperts() {
             </Table>
 
         </div>
+        {isEditing && (
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
             <Card className="p-4 shadow-lg" style={{ width: "35rem" }}>
                 <h2 className="text-center mb-4">Update Expert</h2>
@@ -210,6 +215,7 @@ function ManageExperts() {
                 </Form>
             </Card>
         </Container>
+        )}
 
 
     </div>

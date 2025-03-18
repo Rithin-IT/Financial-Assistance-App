@@ -44,10 +44,10 @@ function RegisterExperts() {
     } 
 
     const Register = async () => {
-        // if (!inputValue.name || !inputValue.email || !inputValue.password) {
-        //     alert("All fields are required");
-        //     return;
-        // }
+        if (!inputValue.name || !inputValue.email || !inputValue.password) {
+            alert("All fields are required");
+            return;
+        }
 
 
         const formData = new FormData();
