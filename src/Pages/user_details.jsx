@@ -86,17 +86,15 @@ function UserDetails() {
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
                 .then((res) => {
-                    console.log(res)
                 });
         }
 
     }
 
-    const getApi = () => {         
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=1&user_id=3')
+    const getApi = () => {
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=3')
             .then((res) => {
                 let getData = res.data.data.data
-                console.log(getData)
                 setInputValue(JSON.parse(getData))
 
             })
@@ -107,8 +105,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [skillsValue]
-            let y = [...inputvalue.skills, ...x]
+            let y = [...inputvalue.skills, skillsValue]
 
             setInputValue({ ...inputvalue, skills: y })
             setSkillsValue("")
@@ -120,8 +117,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [languagesValue]
-            let y = [...inputvalue.languages, ...x]
+            let y = [...inputvalue.languages, languagesValue]
 
             setInputValue({ ...inputvalue, languages: y })
             setLanguageValue("")
@@ -134,8 +130,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [educationValue]
-            let y = [...inputvalue.education, ...x]
+            let y = [...inputvalue.education, educationValue]
 
             setInputValue({ ...inputvalue, education: y })
             setEducationValue({
@@ -153,8 +148,7 @@ function UserDetails() {
             alert("please Enter Value")
         }
         else {
-            let x = [userGoal]
-            let y = [...inputvalue.goals, ...x]
+            let y = [...inputvalue.goals, userGoal]
 
             setInputValue({ ...inputvalue, goals: y })
             setUserGoal("")
