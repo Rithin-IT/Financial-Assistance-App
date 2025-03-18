@@ -1,28 +1,18 @@
-
-
 import { useState, useEffect } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Table,Container,Row,Col,Card } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-
 import { setLoginUsers } from '../Redux/Slices/login';
 import image from '../assets/image1.webp';
-
-
-
 function Login() {
-
-    const financeGlobalState = useSelector((state) => state.login.loginUsers);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loginDetails, setLoginDetails] = useState({
         email: "",
         password: ""
     })
-   
     const submit = () => {
                 
         if (loginDetails.email === "" || loginDetails.password === "") {
@@ -56,7 +46,7 @@ function Login() {
        })
 }
 
-return (
+return (    
     <div
         style={{
             backgroundImage: `url(${image})`,
@@ -107,3 +97,18 @@ return (
 }
 
 export default Login;
+
+
+
+
+
+
+
+
+
+
+
+   
+    
+   
+    
