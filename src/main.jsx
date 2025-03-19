@@ -1,9 +1,7 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
-
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
 

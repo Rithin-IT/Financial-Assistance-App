@@ -7,9 +7,8 @@ import axios from 'axios'
 
 
 function Register() {
+
     const navigate = useNavigate()
-
-
     const [inputValue, setInputValue] = useState({
         name: "",
         email: "",
@@ -54,10 +53,10 @@ function Register() {
     }>
 
 
-        <h3 style={{ textAlign: "center" }}>Register</h3><br></br>
-
-        <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "350px", borderRadius: "15px", marginLeft: "500px", background: "transparent", boxShadow: "0 0 10px" }}>
+        <br></br>
+        <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "500px", marginTop: "50px", borderRadius: "15px", background: "transparent", boxShadow: "0 0 10px" }}>
             <Form style={{ padding: "45px" }}>
+                <h3 style={{ textAlign: "center" }}>Register</h3>
                 <Form.Label>Name</Form.Label>
                 <Form.Control style={{ marginTop: "10px" }} value={inputValue.name} type="text" placeholder="Enter your name" onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })} required  ></Form.Control><br></br>
                 <Form.Label>Email</Form.Label>
