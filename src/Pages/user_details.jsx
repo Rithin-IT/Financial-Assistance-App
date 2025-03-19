@@ -79,24 +79,22 @@ function UserDetails() {
             alert("Please Enter value")
         }
         else {
-            alert("Submitted Successfully")
             const formData = new FormData();
             formData.append("user_id", 3);
             formData.append("data", JSON.stringify(inputvalue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
                 .then((res) => {
-                    console.log(res)
                 });
+                alert("Submitted Successfully")
         }
 
     }
 
-    const getApi = () => {         
-        axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=1&user_id=3')
+    const getApi = () => {
+        axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=3')
             .then((res) => {
                 let getData = res.data.data.data
-                console.log(getData)
                 setInputValue(JSON.parse(getData))
 
             })
@@ -107,8 +105,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [skillsValue]
-            let y = [...inputvalue.skills, ...x]
+            let y = [...inputvalue.skills, skillsValue]
 
             setInputValue({ ...inputvalue, skills: y })
             setSkillsValue("")
@@ -120,8 +117,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [languagesValue]
-            let y = [...inputvalue.languages, ...x]
+            let y = [...inputvalue.languages, languagesValue]
 
             setInputValue({ ...inputvalue, languages: y })
             setLanguageValue("")
@@ -134,8 +130,7 @@ function UserDetails() {
             alert("please enter value")
         }
         else {
-            let x = [educationValue]
-            let y = [...inputvalue.education, ...x]
+            let y = [...inputvalue.education, educationValue]
 
             setInputValue({ ...inputvalue, education: y })
             setEducationValue({
@@ -153,8 +148,7 @@ function UserDetails() {
             alert("please Enter Value")
         }
         else {
-            let x = [userGoal]
-            let y = [...inputvalue.goals, ...x]
+            let y = [...inputvalue.goals, userGoal]
 
             setInputValue({ ...inputvalue, goals: y })
             setUserGoal("")
@@ -208,7 +202,7 @@ function UserDetails() {
                                     type="text"
                                     value={inputvalue.fatherName}
                                     placeholder="Enter Father Name"
-                                    onChange={(e) => setInputValue({ ...inputvalue, fatherName: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, fatherName: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -217,7 +211,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Mother Name"
                                     value={inputvalue.motherName}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, motherName: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, motherName: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -269,7 +263,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Spouse Name"
                                     value={inputvalue.spouseName}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, spouseName: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, spouseName: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -278,7 +272,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Spouse Working Company"
                                     value={inputvalue.spouseWorkingCompany}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, spouseWorkingCompany: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, spouseWorkingCompany: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -287,7 +281,7 @@ function UserDetails() {
                                 <Form.Control type="number" placeholder="Enter Spouse Salary"
                                     value={inputvalue.spouseSalary}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, spouseSalary: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, spouseSalary: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" >
@@ -305,7 +299,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Current Working Company"
                                     value={inputvalue.currentWorkingCompany}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, currentWorkingCompany: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, currentWorkingCompany: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" >
@@ -323,7 +317,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Work Experience"
                                     value={inputvalue.workExperience}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, workExperience: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, workExperience: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
 
@@ -347,7 +341,7 @@ function UserDetails() {
                                 <Form.Control type="text" placeholder="Enter Working Shift"
                                     value={inputvalue.workingShift}
                                     style={{ backgroundColor: "inherit" }}
-                                    onChange={(e) => setInputValue({ ...inputvalue, workingShift: e.target.value.trim() })} />
+                                    onChange={(e) => setInputValue({ ...inputvalue, workingShift: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -392,7 +386,7 @@ function UserDetails() {
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Course Name"
                                     style={{ backgroundColor: "inherit" }} value={educationValue.course_name}
-                                    onChange={(e) => setEducationValue({ ...educationValue, course_name: e.target.value.trim() })} />
+                                    onChange={(e) => setEducationValue({ ...educationValue, course_name: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -400,7 +394,7 @@ function UserDetails() {
                             <Col sm="6">
                                 <Form.Control type="text" placeholder="Enter Course Institute"
                                     style={{ backgroundColor: "inherit" }} value={educationValue.course_institute}
-                                    onChange={(e) => setEducationValue({ ...educationValue, course_institute: e.target.value.trim() })} />
+                                    onChange={(e) => setEducationValue({ ...educationValue, course_institute: e.target.value.trimStart() })} />
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3">
@@ -457,7 +451,7 @@ function UserDetails() {
                                 </Col>
                                 <Col sm="6">
                                     <Form.Control type="text" value={skillsValue}
-                                        onChange={(e) => setSkillsValue(e.target.value.trim())} placeholder=" Enter Skills"
+                                        onChange={(e) => setSkillsValue(e.target.value.trimStart())} placeholder=" Enter Skills"
                                         style={{ backgroundColor: "inherit" }}
                                     />
                                     <ul>
@@ -482,7 +476,7 @@ function UserDetails() {
                                 <Col sm="6">
                                     <Form.Control type="text" placeholder="Enter Languages"
                                         value={languagesValue}
-                                        onChange={(e) => setLanguageValue(e.target.value.trim())}
+                                        onChange={(e) => setLanguageValue(e.target.value.trimStart())}
                                         style={{ backgroundColor: "inherit" }} />
                                     <ul>
                                         {inputvalue.languages.map((v) =>
@@ -507,7 +501,7 @@ function UserDetails() {
                         <Row>
                             <Col sm="8">
                                 <Form.Control type='text' placeholder='Enter Your Goals'
-                                    onChange={(e) => setUserGoal(e.target.value.trim())}
+                                    onChange={(e) => setUserGoal(e.target.value.trimStart())}
                                     value={userGoal} />
                                 <ul>
                                     {inputvalue.goals.map((v) =>
