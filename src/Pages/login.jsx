@@ -37,7 +37,7 @@ function Login() {
                     const userData = response.data.data
                     dispatch(setLoginUsers(userData));
                     localStorage.setItem("user",JSON.stringify(userData))
-                    console.log(userData);
+                   
                     
                     navigate("/userdetails");
                        
