@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form,Col,Row } from 'react-bootstrap';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import web6 from '../assets/web6.jpg'
@@ -51,10 +51,9 @@ function Register() {
             height: "750px"
         }
     }>
-
-
-        <br></br>
-        <div style={{ backgroundColor: "wheat", width: "500px", marginLeft: "500px", marginTop: "50px", borderRadius: "15px", background: "transparent", boxShadow: "0 0 10px" }}>
+        <Row className='justify-content-center'>
+        <Col md="6" lg="4">
+        <div style={{ backgroundColor: "wheat", width: "500px", marginTop: "50px", borderRadius: "15px", background: "transparent", boxShadow: "0 0 10px" }}>
             <Form style={{ padding: "45px" }}>
                 <h3 style={{ textAlign: "center" }}>Register</h3>
                 <Form.Label>Name</Form.Label>
@@ -67,6 +66,8 @@ function Register() {
                 <Button variant="dark" style={{ marginLeft: "150px" }} onClick={userRegister}>Register</Button>
             </Form>
         </div>
+        </Col>
+        </Row>
     </div>
 }
 export default Register
