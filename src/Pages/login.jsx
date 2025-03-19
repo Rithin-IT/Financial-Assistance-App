@@ -34,7 +34,10 @@ function Login() {
                 if (response.data.status === "success") {
                   
                     alert("Login Successful");
-                    dispatch(setLoginUsers(response.data.data));
+                    const userData = response.data.data
+                    dispatch(setLoginUsers(userData));
+                    localStorage.setItem("user",JSON.stringify(userData))
+                    console.log(userData);
                     
                     navigate("/userdetails");
                        
