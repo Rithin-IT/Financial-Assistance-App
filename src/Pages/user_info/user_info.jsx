@@ -16,7 +16,7 @@ function Userinfo() {
 
 
   const getApi = () => {
-    axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=3')
+    axios.get('https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=20')
       .then((res) => {
         if (res.data.data.data) {
           const getData = JSON.parse(res.data.data.data);
