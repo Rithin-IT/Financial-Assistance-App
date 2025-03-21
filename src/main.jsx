@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element:(<AdminLogin/>),
   },
   {
-    path: "/user/login",
+    path: "/user/viewexperts",
     element:(<ViewExperts/>),
   },
   {
