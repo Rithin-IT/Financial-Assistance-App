@@ -1,13 +1,9 @@
-import { useState, useEffect, split } from 'react';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {  Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
-
-
-
-
 
 function showUser() {
 
@@ -45,16 +41,12 @@ function showUser() {
    
   return (
     <div>
-      <h4 style={{ textAlign: "center" }}>My Profile</h4>
+      <h3 style={{ textAlign: "center" }}>My Profile</h3>
       <Row>
         <Col sm="5">
           <div style={{ width: "100%", height: "100%" }}>
             <table style={{ borderCollapse: "collapse", marginLeft: "90px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black",marginTop:"25px" }}>
-              <thead style={{ backgroundColor: "teal", color: "white", textAlign: "left", fontWeight: "bold", padding: "15px" }}>
-                <tr>
-                  <th style={{ padding: "10px" }}>Key</th>
-                  <th>Value</th>
-                </tr>
+              <thead style={{backgroundColor:"red"}}>
               </thead>
 
               <tbody style={{ borderBottom: "5px solid teal" }}>
