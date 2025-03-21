@@ -14,6 +14,8 @@ function UserDetails() {
 
     let UserId = JSON.parse(localStorage.getItem("user"))
 
+    console.log(UserId)
+
     const globalState = useSelector((state)=>state.login.loginUsers)
 
     const [skillsValue, setSkillsValue] = useState([])
@@ -99,7 +101,6 @@ function UserDetails() {
             .then((res) => {
                 let getData = res.data.data.data
                 setInputValue(JSON.parse(getData))
-
             })
     }
 
