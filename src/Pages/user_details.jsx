@@ -1,4 +1,3 @@
-
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -8,13 +7,18 @@ import { useEffect, useState } from 'react';
 import img from '../assets/image4.jpg'
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
+
 import { useNavigate } from 'react-router';
+
 
 
 
 function UserDetails() {
 
-    const userId = JSON.parse(localStorage.getItem("user"))
+
+    let UserId = JSON.parse(localStorage.getItem("user"))
+
+    
 
 const navigate = useNavigate();
     const [skillsValue, setSkillsValue] = useState([])
@@ -57,6 +61,7 @@ const navigate = useNavigate();
 
     useEffect(() => {
         getApi()
+        
     }, [])
 
     const submitBtn = () => {
@@ -83,7 +88,9 @@ const navigate = useNavigate();
         }
         else {
             const formData = new FormData();
-            formData.append("user_id",userId.id);
+
+            formData.append("user_id", UserId.id);
+
             formData.append("data", JSON.stringify(inputvalue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
@@ -96,7 +103,9 @@ const navigate = useNavigate();
     }
 
     const getApi = () => {
-        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${userId.id}`)
+
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${UserId.id}`)
+
             .then((res) => {
                 let getData = res.data.data.data
                 setInputValue(JSON.parse(getData))
