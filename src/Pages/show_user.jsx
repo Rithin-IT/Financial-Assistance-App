@@ -52,7 +52,7 @@ function showUser() {
               <tbody style={{ borderBottom: "5px solid teal" }}>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding:"10px"}}>Father Name</td>
-                  <td style={{ padding: "10px" }}>{inputValue.fatherName}</td>
+                  <td>{inputValue.fatherName}</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding: "10px" }}>Mother Name</td>
@@ -80,7 +80,7 @@ function showUser() {
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding: "10px" }}>Spouse Yearly Salary</td>
-                  <td>{inputValue.spouseYearlySalary}</td>
+                  <td>{inputValue.spouseSalary}</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding: "10px" }}>Children</td>
@@ -100,7 +100,7 @@ function showUser() {
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding: "10px" }}>Working Hours</td>
-                  <td>{inputValue.workHours}</td>
+                  <td>{inputValue.workingHours}</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
                   <td style={{ padding: "10px" }}>Working Shift</td>
