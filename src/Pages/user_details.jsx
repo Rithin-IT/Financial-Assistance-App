@@ -7,14 +7,10 @@ import { useEffect, useState } from 'react';
 import img from '../assets/image4.jpg'
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
-import { useSelector } from 'react-redux';
-
 
 function UserDetails() {
 
     let UserId = JSON.parse(localStorage.getItem("user"))
-
-    const globalState = useSelector((state)=>state.login.loginUsers)
 
     const [skillsValue, setSkillsValue] = useState([])
 
@@ -56,7 +52,7 @@ function UserDetails() {
 
     useEffect(() => {
         getApi()
-        
+    
     }, [])
 
     const submitBtn = () => {
