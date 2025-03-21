@@ -2,16 +2,15 @@ import { createRoot } from 'react-dom/client'
 import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
-
 import AdminLogin from './Pages/Admin/adminLogin.jsx'
 import ExpertLogin from './Pages/Expert/expertLogin.jsx'
 import ViewExperts from './Pages/viewExperts.jsx'
 import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
-
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
+import ShowUser from './Pages/show_user.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -26,7 +25,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
+
     element:(<Register/>),
+
   },
   {
     path: "/userdetails",
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
   {
     path: "/expert/viewuserdetails",
     element:(<ViewUserDetails/>),
+  },
+  {
+    path: "/showuserdetails",
+    element:(<ShowUser/>),
   },
 ]);
 

@@ -7,15 +7,20 @@ import { useEffect, useState } from 'react';
 import img from '../assets/image4.jpg'
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
-import { useSelector } from 'react-redux';
+
+import { useNavigate } from 'react-router';
+
+
 
 
 function UserDetails() {
 
+
     let UserId = JSON.parse(localStorage.getItem("user"))
 
-    const globalState = useSelector((state)=>state.login.loginUsers)
+    
 
+const navigate = useNavigate();
     const [skillsValue, setSkillsValue] = useState([])
 
     const [languagesValue, setLanguageValue] = useState([])
@@ -83,19 +88,24 @@ function UserDetails() {
         }
         else {
             const formData = new FormData();
+
             formData.append("user_id", UserId.id);
+
             formData.append("data", JSON.stringify(inputvalue))
 
             axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
                 .then((res) => {
                 });
                 alert("Submitted Successfully")
+                navigate('/showuserdetails')
         }
 
     }
 
     const getApi = () => {
+
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${UserId.id}`)
+
             .then((res) => {
                 let getData = res.data.data.data
                 setInputValue(JSON.parse(getData))
