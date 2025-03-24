@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 function ViewExperts() {
-    const UserId = JSON.parse(localStorage.getItem("user"));
+    let userId = JSON.parse(localStorage.getItem("user"))
+    console.log(userId)
 
     const [viewExperts, setViewExperts] = useState([]);
     const [isRequested, setIsRequested] = useState({}); 
@@ -14,19 +15,23 @@ function ViewExperts() {
     }, []);
 
     const getApi = () => {
-        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_all_experts&user_id=${UserId.id}`)
+        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_all_experts&user_id=${userId.id}`)
             .then((res) => {
                 console.log(res);
                 let getData = res.data.data;
                 setViewExperts(getData);
-            });
-    };
+
+               
+        })
+    }
+            
+    
 
     const sendRequest = (expertId) => {
         setIsRequested(true)
         
         const formData = new FormData();
-        formData.append("user_id", UserId.id);
+        formData.append("user_id", userId.id);
         formData.append("expert_id", expertId);
 
         axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_expert_request", formData)
@@ -59,7 +64,7 @@ function ViewExperts() {
                         </tr>
                     </thead>
                     <tbody>
-                        {viewExperts.map((v, i) => (
+                        {viewExperts.map((v) => (
                             <tr>
                                 <td>{v.id}</td>
                                 <td>{v.name}</td>
@@ -69,12 +74,15 @@ function ViewExperts() {
                                 <td>{v.designation}</td>
                                 <td>{v.current_organization}</td>
                                 <td>{v.years_of_experience_in_finance}</td>
-                                <td>{v.areas_of_expertise}</td>
+                                <td>{typeof v.areas_of_expertise === "string"
+                                ? v.areas_of_expertise.replace(/[\[\]"]+/g, '').split(',').join(",")
+                                : v.areas_of_expertise.join(",")}</td>
                                 <td>
                                     <Button
                                         variant="success"
                                         onClick={() => sendRequest(v.id)}
-                                        disabled={v.isRequested}>
+                                        disabled={v.isRequested} 
+                                    >
                                         {v.isRequested ? "Requested" : "Contact Request"}
                                     </Button>
                                 </td>
