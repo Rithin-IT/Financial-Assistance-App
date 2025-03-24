@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import img from '../assets/image4.jpg'
 import Navbar from 'react-bootstrap/Navbar';
 import axios from 'axios'
-
 import { useNavigate } from 'react-router';
 
 
@@ -21,6 +20,7 @@ function UserDetails() {
     
 
 const navigate = useNavigate();
+
     const [skillsValue, setSkillsValue] = useState([])
 
     const [languagesValue, setLanguageValue] = useState([])
@@ -61,7 +61,7 @@ const navigate = useNavigate();
 
     useEffect(() => {
         getApi()
-        
+    
     }, [])
 
     const submitBtn = () => {
@@ -71,10 +71,6 @@ const navigate = useNavigate();
             inputvalue.DoB == "" ||
             inputvalue.gender == "" ||
             inputvalue.maritalStatus == "" ||
-            inputvalue.spouseName == "" ||
-            inputvalue.spouseWorkingCompany == "" ||
-            inputvalue.spouseSalary == "" ||
-            inputvalue.children == "" ||
             inputvalue.currentWorkingCompany == "" ||
             inputvalue.salary == "" ||
             inputvalue.workExperience == "" ||
