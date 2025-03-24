@@ -82,7 +82,8 @@ function FinanceAi() {
         6.Provide a disclaimer regarding financial advice and the importance of consulting a professional.
         7. Output needs to look good like real time web application.
         8. Output response will be HTML format only and avoid text which are placed outside HTML
-        9. donot use $ use Rs with valuea
+        9. donot use $ use Rs with value
+       
         
        
            
@@ -96,6 +97,7 @@ function FinanceAi() {
     setLoading(false);
 
   }
+  
   return <div>
 
     <Button
