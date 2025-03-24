@@ -11,6 +11,7 @@ import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
 import ShowUser from './Pages/show_user.jsx'
+import FinanceAi from './Pages/financeai.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "/showuserdetails",
     element:(<ShowUser/>),
+  },
+  {
+    path: '/finance_ai',
+    element:(<FinanceAi/>),
   },
 ]);
 
