@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
-function showUser() {
+function ShowUser() {
 
     let userId = JSON.parse(localStorage.getItem("user"))
     console.log(userId)
@@ -178,4 +178,4 @@ function showUser() {
   );
 }
 
-export default showUser
+export default ShowUser
