@@ -63,7 +63,7 @@ function FinanceAi() {
 
   const help = () => {
     alert("Are u interested to talk with expert?");
-    navigate('/user/login')
+    navigate('/user/viewexperts')
   }
 
 

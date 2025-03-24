@@ -60,6 +60,20 @@ const router = createBrowserRouter([
     path: "/expert/viewuserdetails",
     element:(<ViewUserDetails/>),
   },
+  {
+    path: "/showuserdetails",
+    element:(<ShowUser/>),
+  },
+  {
+    path: "/showuserdetails",
+    element:(<ViewUserDetails/>),
+  },
+  {
+    path: "/finance_ai",
+    element:(<FinanceAi/>),
+  },
+  
+   
 
 
   
