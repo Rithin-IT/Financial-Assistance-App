@@ -8,6 +8,8 @@ import ViewExperts from './Pages/viewExperts.jsx'
 import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
+
+
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
 import ShowUser from './Pages/show_user.jsx'
@@ -58,14 +60,9 @@ const router = createBrowserRouter([
     path: "/expert/viewuserdetails",
     element:(<ViewUserDetails/>),
   },
-  {
-    path: "/showuserdetails",
-    element:(<ShowUser/>),
-  },
-  {
-    path: '/finance_ai',
-    element:(<FinanceAi/>),
-  },
+
+
+  
 ]);
 
 createRoot(document.getElementById("root")).render(
