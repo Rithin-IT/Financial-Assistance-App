@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button, Table,Container,Card,Form,Row, Col } from "react-bootstrap";
+import { Button, Table, Container, Card, Form, Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router";
 
@@ -36,11 +36,11 @@ function ManageExperts() {
             })
     }
 
-    
+
     const handleEdit = (expert) => {
         setInputValue(expert);
         setIsEditing(true);
-      
+
     };
 
 
@@ -49,10 +49,10 @@ function ManageExperts() {
         const formData = new FormData();
         formData.append("id", id);
 
-       axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_delete_expert",formData)
-    
+        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_delete_expert", formData)
+
         let del = experts.filter((expert) => expert.id !== id)
-       
+
         setExperts(del)
     }
     const updateExpert = () => {
@@ -65,24 +65,24 @@ function ManageExperts() {
         formData.append("designation", inputValue.designation);
         formData.append("current_organization", inputValue.current_organization);
         formData.append("years_of_experience_in_finance", inputValue.years_of_experience_in_finance);
-        formData.append("areas_of_expertise", JSON.stringify(inputValue.areas_of_expertise)); 
-    
+        formData.append("areas_of_expertise", JSON.stringify(inputValue.areas_of_expertise));
+
         axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_update_expert_profile", formData)
             .then((res) => {
                 console.log(res);
-                if (res.data.status === "success") { 
-                   
+                if (res.data.status === "success") {
+
                     alert("Expert updated successfully");
-                    
-                    getApi(); 
-                    
-                } 
+
+                    getApi();
+
+                }
             })
-        }
-    
+    }
 
 
- 
+
+
     return <div>
         <div className="container mt-4">
             <h2 className="mb-4">Manage Experts</h2>
@@ -103,9 +103,9 @@ function ManageExperts() {
                 </thead>
                 <tbody>
 
-                    {experts.map((expert,index) => (
+                    {experts.map((expert, index) => (
                         <tr>
-                           <td>{expert.id}</td>
+                            <td>{expert.id}</td>
                             <td>{expert.name}</td>
                             <td>{expert.email}</td>
                             <td>{expert.contact}</td>
@@ -113,9 +113,11 @@ function ManageExperts() {
                             <td>{expert.designation}</td>
                             <td>{expert.current_organization}</td>
                             <td>{expert.years_of_experience_in_finance}</td>
-                            <td>{expert.areas_of_expertise.split(/[""]/)}</td>
+                            <td>{typeof expert.areas_of_expertise === "string"
+                                ? expert.areas_of_expertise.replace(/[\[\]"]+/g, '').split(',').join(",")
+                                : expert.areas_of_expertise.join(",")}</td>
                             <td>
-                                <Button variant="warning" className="me-2" onClick={() => handleEdit(expert,index)}>
+                                <Button variant="warning" className="me-2" onClick={() => handleEdit(expert, index)}>
                                     Edit
                                 </Button>
                                 <Button variant="danger" onClick={() => handleDelete(expert.id)}>
@@ -131,90 +133,90 @@ function ManageExperts() {
 
         </div>
         {isEditing && (
-        <Container className="d-flex justify-content-center align-items-center min-vh-100">
-            <Card className="p-4 shadow-lg" style={{ width: "35rem" }}>
-                <h2 className="text-center mb-4">Update Expert</h2>
-                <Form>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.name}
-                            onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
-                        />
-                    </Form.Group>
+            <Container className="d-flex justify-content-center align-items-center min-vh-100">
+                <Card className="p-4 shadow-lg" style={{ width: "35rem" }}>
+                    <h2 className="text-center mb-4">Update Expert</h2>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.name}
+                                onChange={(e) => setInputValue({ ...inputValue, name: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                            type="email"
-                            value={inputValue.email}
-                            onChange={(e) => setInputValue({ ...inputValue, email: e.target.value })}
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control
+                                type="email"
+                                value={inputValue.email}
+                                onChange={(e) => setInputValue({ ...inputValue, email: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Contact</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.contact}
-                            onChange={(e) => setInputValue({ ...inputValue, contact: e.target.value })}
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Contact</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.contact}
+                                onChange={(e) => setInputValue({ ...inputValue, contact: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Gender</Form.Label>
-                        <Form.Select
-                            value={inputValue.gender}
-                            onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })}
-                        >
-                            <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </Form.Select>
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Gender</Form.Label>
+                            <Form.Select
+                                value={inputValue.gender}
+                                onChange={(e) => setInputValue({ ...inputValue, gender: e.target.value })}
+                            >
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </Form.Select>
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Designation</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.designation}
-                            onChange={(e) => setInputValue({ ...inputValue, designation: e.target.value })}
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Designation</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.designation}
+                                onChange={(e) => setInputValue({ ...inputValue, designation: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Current Organization</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.current_organization}
-                            onChange={(e) => setInputValue({ ...inputValue, current_organization: e.target.value })}
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Current Organization</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.current_organization}
+                                onChange={(e) => setInputValue({ ...inputValue, current_organization: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Years of Experience</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.years_of_experience_in_finance}
-                            onChange={(e) => setInputValue({ ...inputValue, years_of_experience_in_finance: e.target.value })}
-                        />
-                    </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Years of Experience</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.years_of_experience_in_finance}
+                                onChange={(e) => setInputValue({ ...inputValue, years_of_experience_in_finance: e.target.value })}
+                            />
+                        </Form.Group>
 
-                    <Form.Group className="mb-3">
-                        <Form.Label>Expertise</Form.Label>
-                        <Form.Control
-                            type="text"
-                            value={inputValue.areas_of_expertise}
-                            onChange={(e) => setInputValue({ ...inputValue,areas_of_expertise: e.target.value })}
-                        />
-                    </Form.Group>
-                    <Button variant="success" className="w-100" onClick={updateExpert}>
-                        Update
-                    </Button>
-                </Form>
-            </Card>
-        </Container>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Expertise</Form.Label>
+                            <Form.Control
+                                type="text"
+                                value={inputValue.areas_of_expertise}
+                                onChange={(e) => setInputValue({ ...inputValue, areas_of_expertise: e.target.value })}
+                            />
+                        </Form.Group>
+                        <Button variant="success" className="w-100" onClick={updateExpert}>
+                            Update
+                        </Button>
+                    </Form>
+                </Card>
+            </Container>
         )}
 
 

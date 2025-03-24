@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 function RegisterExperts() {
-    const dispatch = useDispatch()
+  
     const navigate = useNavigate();
 
  const [areaofexpertise, setAreaofexpertise] = useState([])
