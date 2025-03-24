@@ -62,10 +62,6 @@ function UserDetails() {
             inputvalue.DoB == "" ||
             inputvalue.gender == "" ||
             inputvalue.maritalStatus == "" ||
-            inputvalue.spouseName == "" ||
-            inputvalue.spouseWorkingCompany == "" ||
-            inputvalue.spouseSalary == "" ||
-            inputvalue.children == "" ||
             inputvalue.currentWorkingCompany == "" ||
             inputvalue.salary == "" ||
             inputvalue.workExperience == "" ||
