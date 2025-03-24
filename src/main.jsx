@@ -1,7 +1,4 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
 import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
@@ -15,7 +12,8 @@ import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
 
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
-
+import ShowUser from './Pages/show_user.jsx'
+import FinanceAi from './Pages/financeai.jsx'
 import {
   createBrowserRouter,
   RouterProvider,
@@ -30,7 +28,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/register",
+
     element:(<Register/>),
+
   },
   {
     path: "/userdetails",
@@ -60,6 +60,8 @@ const router = createBrowserRouter([
     path: "/expert/viewuserdetails",
     element:(<ViewUserDetails/>),
   },
+
+
   
 ]);
 
@@ -68,3 +70,10 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </Provider>,
 );
+
+
+
+
+
+
+
