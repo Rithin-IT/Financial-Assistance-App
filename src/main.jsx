@@ -3,20 +3,24 @@ import Login from './Pages/login.jsx'
 import Register from './Pages/register.jsx'
 import UserDetails from './Pages/user_details.jsx'
 import AdminLogin from './Pages/Admin/adminLogin.jsx'
-import ExpertLogin from './Pages/Expert/expertLogin.jsx'
 import ViewExperts from './Pages/viewExperts.jsx'
 import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
 import { Provider } from 'react-redux'
 import store from '../src/Redux/store.js'
-import ShowUser from './Pages/show_user.jsx'
+import ShowUser from './Pages/show_user.jsx';
+import LoginExpert from './Pages/Expert/loginExpert.jsx'
+
+
+
 import {
   createBrowserRouter,
   RouterProvider,
   Route,
   Link,
 } from "react-router-dom";
+
 
 const router = createBrowserRouter([
   {
@@ -32,10 +36,6 @@ const router = createBrowserRouter([
   {
     path: "/userdetails",
     element:(<UserDetails/>),
-  },
-  {
-    path: "/expert/login",
-    element:(<ExpertLogin/>),
   },
   {
     path: "/admin/login",
@@ -60,6 +60,10 @@ const router = createBrowserRouter([
   {
     path: "/showuserdetails",
     element:(<ShowUser/>),
+  },
+  {
+    path: "expert/loginexpert",
+    element:(<LoginExpert/>),
   },
 ]);
 
