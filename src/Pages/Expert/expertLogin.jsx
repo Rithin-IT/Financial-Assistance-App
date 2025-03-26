@@ -2,12 +2,14 @@ import { Form, Button, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react'
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import bg from '../../assets/bg.webp'
+import bg from '../../assets/bg.webp';
+import { setExpertLoginUsers } from '../../Redux/Slices/expertLogin';
 
 
 function ExpertLogin() {
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [inputValue, setinputValue] = useState({
         email: "",
@@ -31,6 +33,11 @@ function ExpertLogin() {
 
                 if (response.data.status === "success") {
                     alert("Login Successful");
+
+                    const userData = response.data.data
+                    dispatch(setExpertLoginUsers(userData));
+                    localStorage.setItem("users",JSON.stringify(userData))
+                    console.log(userData);
                     navigate('/expert/viewuserdetails')
                 }
             })
