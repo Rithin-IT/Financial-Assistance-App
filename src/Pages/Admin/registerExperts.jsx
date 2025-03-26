@@ -7,11 +7,12 @@ import { Button, Form, Container, Row, Col, Card, CloseButton } from 'react-boot
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import blue from '../../assets/blue.jpg';
 function RegisterExperts() {
-  
+
     const navigate = useNavigate();
 
- const [areaofexpertise, setAreaofexpertise] = useState([])
+    const [areaofexpertise, setAreaofexpertise] = useState([])
 
     const [inputValue, setInputValue] = useState({
         name: "",
@@ -41,7 +42,7 @@ function RegisterExperts() {
     const deleteareas_of_expertise = (v) => {
         let del = inputValue.areas_of_expertise.filter((items) => items != v)
         setInputValue({ ...inputValue, areas_of_expertise: del })
-    } 
+    }
 
     const Register = async () => {
         if (!inputValue.name || !inputValue.email || !inputValue.password) {
@@ -74,11 +75,16 @@ function RegisterExperts() {
                 navigate('/admin/manageexperts')
             })
     }
-    return <div>
+    return <div style={{
+        backgroundImage: `url(${blue})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        height: "1000px"
+    }}>
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
-            <Card className="p-4 shadow-lg" style={{ width: '30rem' }}>
+            <Card className="p-4 shadow-lg" style={{ width: '30rem', height: "900px",marginTop:"40px" }}>
                 <h2 className="text-center mb-4">Register Experts</h2>
-                <Form>
+                <Form style={{ height: "550px" }}>
                     <Form.Group className="mb-3">
                         <Form.Label>Name</Form.Label>
                         <Form.Control type="text" placeholder="Enter your name"
@@ -140,30 +146,30 @@ function RegisterExperts() {
                             value={inputValue.years_of_experience_in_finance}
                             onChange={(e) => setInputValue({ ...inputValue, years_of_experience_in_finance: e.target.value })} required />
                     </Form.Group>
-                  
-                        <Form.Group className="mb-3">
-                            <Row>
-                                <Col sm="2">
-                                    <Form.Label>Area of expertise</Form.Label>
-                                </Col>
-                                <Col sm="6">
-                                    <Form.Control type="text" value={areaofexpertise}
-                                        onChange={(e) => setAreaofexpertise(e.target.value.trim())} 
-                                        placeholder=" Enter area of expertise"
-                                        style={{ backgroundColor: "inherit" }}
-                                    />
-                                    <ul>
-                                        {(inputValue.areas_of_expertise || []).map((v) =>
-                                            <li>{v}<CloseButton
-                                                onClick={() => deleteareas_of_expertise(v)} /></li>
-                                        )}
-                                    </ul>
-                                </Col>
-                                <Col sm="2">
-                                    <Button variant='dark' onClick={addexpertiseBtn}>Add</Button>
-                                </Col>
-                            </Row>
-                        </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Row>
+                            <Col sm="2">
+                                <Form.Label>Area of expertise</Form.Label>
+                            </Col>
+                            <Col sm="6">
+                                <Form.Control type="text" value={areaofexpertise}
+                                    onChange={(e) => setAreaofexpertise(e.target.value.trim())}
+                                    placeholder=" Enter area of expertise"
+                                    style={{ backgroundColor: "inherit" }}
+                                />
+                                <ul>
+                                    {(inputValue.areas_of_expertise || []).map((v) =>
+                                        <li>{v}<CloseButton
+                                            onClick={() => deleteareas_of_expertise(v)} /></li>
+                                    )}
+                                </ul>
+                            </Col>
+                            <Col sm="2">
+                                <Button variant='dark' onClick={addexpertiseBtn}>Add</Button>
+                            </Col>
+                        </Row>
+                    </Form.Group>
 
 
                     <Button variant="dark" className="w-100" onClick={Register}>Register</Button>

@@ -6,6 +6,7 @@ import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import imag2 from '../../assets/imag2.avif'
 function AdminLogin() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -43,7 +44,11 @@ function AdminLogin() {
 
            })
     }
-    return <div>
+    return <div style={{
+        backgroundImage:`url(${imag2})`,
+        backgroundSize:"cover",
+        height:"700px"
+    }}>
         <Container className="d-flex justify-content-center align-items-center vh-100">
             <Row>
                 <Col>
