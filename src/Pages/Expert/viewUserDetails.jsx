@@ -23,13 +23,13 @@ function ViewUserDetails() {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_view_expert_users&expert_id=${expertId.id}`)
             .then((res) => {
-                if (res.data.data) {
-                    let getData = res.data.data
-                    let val = getData.map((v) => JSON.parse(v.data))
-                    console.log(val);
-                    setUserData(val)
+          console.log(res)
+                let getData = res.data.data
+                let val = getData.map((v) => JSON.parse(v.data))
+                console.log(val);
+                setUserData(val)
 
-                }
+
 
             })
     }
@@ -42,6 +42,10 @@ function ViewUserDetails() {
 
     console.log(userData);
 
+    const moreDetails = () => {
+        navigate('/expert/showuserinfo')
+    }
+
 
 
     return (
@@ -53,6 +57,7 @@ function ViewUserDetails() {
                         <table style={{ borderCollapse: "collapse", marginLeft: "120px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black", marginTop: "25px" }}>
                             <thead style={{ backgroundColor: "teal", color: "white", textAlign: "center", fontWeight: "bold", padding: "15px" }}>
                                 <tr>
+                                    <th>Id</th>
                                     <th style={{ padding: "10px" }}>Name</th>
                                     <th>Email</th>
                                     <th>DOB</th>
@@ -62,13 +67,14 @@ function ViewUserDetails() {
 
                             <tbody style={{ borderBottom: "3px solid teal", textAlign: "center" }}>
 
-                                {userData.map((user) => (
+                                {userData.map((user,index) => (
                                     <tr >
+                                        <td>{user.id}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.DoB}</td>
                                         <td>
-                                            <button style={{ marginLeft: "425px", padding: "8px", backgroundColor: "teal", border: "none", borderRadius: "5px", marginTop: "15px", color: "white" }} onClick={moredetails}>Need More details</button>
+                                            <button style={{ marginLeft: "425px", padding: "8px", backgroundColor: "teal", border: "none", borderRadius: "5px", marginTop: "15px", color: "white" }} onClick={moreDetails} >Need More details</button>
                                         </td>
                                     </tr>
                                 ))
