@@ -59,15 +59,17 @@ return (
         style={{
             backgroundImage: `url(${image})`,
             backgroundSize: "cover",
-           height:"543px",
+           height:"559px",
             backgroundRepeat: "no-repeat",
+            overflowX:"hidden"
             
         }}
     >
             
             <Row className="justify-content-center">
                 <Col md={6} lg={4}>
-                    <Card className="p-4 shadow-lg" style={{ backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "10px", marginTop:"100px" }}>
+                    <Card className="p-4 shadow-lg" 
+                    style={{ backgroundColor: "rgba(255, 255, 255, 0.85)", borderRadius: "10px", marginTop:"100px" }}>
                         <Card.Body>
                             <h3 className="text-center mb-4 text-dark">Login</h3>
                             <Form>
