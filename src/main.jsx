@@ -70,7 +70,7 @@ const router = createBrowserRouter([
     element:(<FinanceAi/>),
   },
   {
-    path: "/expert/showuserinfo",
+    path: "/expert/user/:user_id",
     element:(<UserInfo/>),
   },
   

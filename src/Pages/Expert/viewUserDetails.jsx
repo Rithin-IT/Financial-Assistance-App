@@ -4,6 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -22,16 +23,16 @@ function ViewUserDetails() {
     const getApi = () => {
 
         axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_view_expert_users&expert_id=${expertId.id}`)
-            .then((res) => {
-          console.log(res)
-                let getData = res.data.data
-                let val = getData.map((v) => JSON.parse(v.data))
-                console.log(val);
-                setUserData(val)
-
-
-
-            })
+        .then((res) => {
+            let getData = res.data.data;
+            let val = getData.map((v) => {
+                let parsedData = JSON.parse(v.data);
+                console.log(parsedData);
+                return { ...parsedData, id: v.user_id }; 
+            });
+           
+            setUserData(val);
+        })
     }
 
 
@@ -40,11 +41,9 @@ function ViewUserDetails() {
         getApi();
     }, []);
 
-    console.log(userData);
+    // console.log(userData);
 
-    const moreDetails = () => {
-        navigate('/expert/showuserinfo')
-    }
+   
 
 
 
@@ -58,7 +57,7 @@ function ViewUserDetails() {
                             <thead style={{ backgroundColor: "teal", color: "white", textAlign: "center", fontWeight: "bold", padding: "15px" }}>
                                 <tr>
                                     <th>Id</th>
-                                    <th style={{ padding: "10px" }}>Name</th>
+                                    <th >Name</th>
                                     <th>Email</th>
                                     <th>DOB</th>
                                     <th>Action</th>
@@ -66,19 +65,21 @@ function ViewUserDetails() {
                             </thead>
 
                             <tbody style={{ borderBottom: "3px solid teal", textAlign: "center" }}>
-
-                                {userData.map((user,index) => (
-                                    <tr >
+                            {userData.map((user) => (
+                                    <tr key={user.id}>
                                         <td>{user.id}</td>
                                         <td>{user.name}</td>
                                         <td>{user.email}</td>
                                         <td>{user.DoB}</td>
                                         <td>
-                                            <button style={{ marginLeft: "425px", padding: "8px", backgroundColor: "teal", border: "none", borderRadius: "5px", marginTop: "15px", color: "white" }} onClick={moreDetails} >Need More details</button>
+                                            <Link to={`/expert/user/${user.id}`}>
+                                                <Button style={{ backgroundColor: "teal", border: "none", borderRadius: "5px", color: "white" }}>
+                                                    Need More Details
+                                                </Button>
+                                            </Link>
                                         </td>
                                     </tr>
-                                ))
-                                }
+                                ))}
                             </tbody>
                         </table>
                     </div>
