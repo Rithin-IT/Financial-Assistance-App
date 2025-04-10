@@ -8,6 +8,7 @@ import ViewExperts from './Pages/viewExperts.jsx'
 import ManageExperts from './Pages/Admin/manageExperts.jsx'
 import RegisterExperts from './Pages/Admin/registerExperts.jsx'
 import ViewUserDetails from './Pages/Expert/viewUserDetails.jsx'
+import Navigate from './Pages/navigate.jsx'
 
 
 import { Provider } from 'react-redux'
@@ -72,11 +73,10 @@ const router = createBrowserRouter([
     path: "/finance_ai",
     element:(<FinanceAi/>),
   },
-  
-   
-
-
-  
+  {
+    path: "/navigate",
+    element:(<Navigate/>),
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
