@@ -27,7 +27,7 @@ function ManageExperts() {
 
     const getApi = () => {
 
-        axios.get("https://agaram.academy/api/b4/action.php?request=ai_finance_get_all_experts")
+        axios.get("https://antorithin.pythonanywhere.com/get_all_experts")
             .then((res) => {
                 console.log(res.data.data)
                 setExperts(res.data.data);
@@ -49,7 +49,7 @@ function ManageExperts() {
         const formData = new FormData();
         formData.append("id", id);
 
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_delete_expert", formData)
+        axios.post("https://antorithin.pythonanywhere.com/admin/deleteexperts", formData)
 
         let del = experts.filter((expert) => expert.id !== id)
 
@@ -67,7 +67,7 @@ function ManageExperts() {
         formData.append("years_of_experience_in_finance", inputValue.years_of_experience_in_finance);
         formData.append("areas_of_expertise", JSON.stringify(inputValue.areas_of_expertise));
 
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_update_expert_profile", formData)
+        axios.post("https://antorithin.pythonanywhere.com/admin/updateexperts", formData)
             .then((res) => {
                 console.log(res);
                 if (res.data.status === "success") {

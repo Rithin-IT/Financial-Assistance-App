@@ -1,28 +1,27 @@
 import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {  Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 
 function ShowUser() {
 
-    let userId = JSON.parse(localStorage.getItem("user"))
-    console.log(userId)
+  let UserId = JSON.parse(localStorage.getItem("user"))
   const [inputValue, setInputValue] = useState({})
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   const getApi = () => {
-  axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${userId.id}`)
-      .then((res) => {
-        if (res.data.data.data) {
-          const getData = JSON.parse(res.data.data.data);
-          
-          setInputValue(getData);
-        }
-      })
+     const headers={'Authorization':`Bearer ${UserId.token}`}
+   
+           axios.get(`https://antorithin.pythonanywhere.com/user/getprofile/${UserId.id}`,{headers})
+               .then((res) => {
+                   console.log(res.data.data.data)
+                   let getData = res.data.data.data
+                   setInputValue(JSON.parse(getData))
+               })
   }
 
 
@@ -30,28 +29,28 @@ function ShowUser() {
     getApi();
   }, []);
 
-  const update=()=>{
+  const update = () => {
     navigate('/userDetails')
   }
 
-  const ask=()=>{
+  const ask = () => {
     navigate('/finance_ai')
   }
-  
-   
+
+
   return (
     <div>
       <h3 style={{ textAlign: "center" }}>My Profile</h3>
       <Row>
         <Col sm="5">
           <div style={{ width: "100%", height: "100%" }}>
-            <table style={{ borderCollapse: "collapse", marginLeft: "90px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black",marginTop:"25px" }}>
-              <thead style={{backgroundColor:"red"}}>
+            <table style={{ borderCollapse: "collapse", marginLeft: "90px", minWidth: "100%", borderRadius: "5px 5px 0 0", overflow: "hidden", boxShadow: "0 0 20px black", marginTop: "25px" }}>
+              <thead style={{ backgroundColor: "red" }}>
               </thead>
 
               <tbody style={{ borderBottom: "5px solid teal" }}>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
-                  <td style={{ padding:"10px"}}>Father Name</td>
+                  <td style={{ padding: "10px" }}>Father Name</td>
                   <td>{inputValue.fatherName}</td>
                 </tr>
                 <tr style={{ borderBottom: "1px solid gainsboro" }}>
@@ -130,7 +129,7 @@ function ShowUser() {
               {/* <Col sm="5"> */}
               <thead style={{ backgroundColor: "teal", color: "white", textAlign: "center", fontWeight: "bold", padding: "15px" }}>
                 <tr>
-                  <th style={{padding:"10px"}}>Course Name</th>
+                  <th style={{ padding: "10px" }}>Course Name</th>
                   <th>Institute Name</th>
                   <th>Year</th>
                   <th>Percentage</th>
@@ -139,10 +138,10 @@ function ShowUser() {
               <tbody>
                 {inputValue.education?.map((v) =>
                   <tr>
-                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_name}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_institute}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_year}</td>
-                    <td style={{ borderBottom: "1px solid gainsboro",padding:"5px",textAlign:"center" }}>{v.course_percentage}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro", padding: "5px", textAlign: "center" }}>{v.course_name}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro", padding: "5px", textAlign: "center" }}>{v.course_institute}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro", padding: "5px", textAlign: "center" }}>{v.course_year}</td>
+                    <td style={{ borderBottom: "1px solid gainsboro", padding: "5px", textAlign: "center" }}>{v.course_percentage}</td>
                   </tr>
                 )}
               </tbody>
@@ -150,7 +149,7 @@ function ShowUser() {
             </table>
 
             <div style={{ marginLeft: "160px", backgroundColor: "teal", width: "100%", height: "500px", borderRadius: "15px", boxShadow: "0 0 20px black" }}>
-              <div style={{ marginLeft: "40px", color: "white",marginTop:"50px",padding:"20px" }}>
+              <div style={{ marginLeft: "40px", color: "white", marginTop: "50px", padding: "20px" }}>
 
                 <h3 style={{ marginTop: "40px" }}>Skills</h3>
                 <ul style={{ listStyleType: "square" }}>
@@ -168,8 +167,8 @@ function ShowUser() {
                 </ul>
               </div>
             </div>
-            <button style={{marginLeft:"450px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px",color:"white"}} onClick={update}>Update</button>
-            <button style={{marginLeft:"425px", padding:"8px", backgroundColor:"teal", border:"none", borderRadius:"5px", marginTop:"15px",color:"white"}} onClick={ask}>Ask Guidance</button>
+            <button style={{ marginLeft: "450px", padding: "8px", backgroundColor: "teal", border: "none", borderRadius: "5px", marginTop: "15px", color: "white" }} onClick={update}>Update</button>
+            <button style={{ marginLeft: "425px", padding: "8px", backgroundColor: "teal", border: "none", borderRadius: "5px", marginTop: "15px", color: "white" }} onClick={ask}>Ask Guidance</button>
           </div>
         </Col>
       </Row>

@@ -15,7 +15,7 @@ function ViewExperts() {
     }, []);
 
     const getApi = () => {
-        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_all_experts&user_id=${userId.id}`)
+        axios.get(`https://antorithin.pythonanywhere.com/user/vieweexperts/${userId.id}`)
             .then((res) => {
                 console.log(res);
                 let getData = res.data.data;
@@ -34,7 +34,7 @@ function ViewExperts() {
         formData.append("user_id", userId.id);
         formData.append("expert_id", expertId);
 
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_expert_request", formData)
+        axios.post("https://antorithin.pythonanywhere.com/user/request_experts", formData)
             .then((response) => {
                 if (response.data.status === "success") {
                     alert("Request sent successfully");

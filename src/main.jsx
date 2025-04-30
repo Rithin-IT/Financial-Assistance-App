@@ -28,6 +28,10 @@ const router = createBrowserRouter([
     element: (<Login/>),
   },
   {
+    path: "/",
+    element: (<Login/>),
+  },
+  {
     path: "/register",
 
     element:(<Register/>),
@@ -66,7 +70,7 @@ const router = createBrowserRouter([
     element:(<ShowUser/>),
   },
   {
-    path: "/showuserdetails",
+    path: "/viewuserdetails",
     element:(<ViewUserDetails/>),
   },
   {

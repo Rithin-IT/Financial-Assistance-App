@@ -1,6 +1,4 @@
-
 import { useState, useEffect } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Form, Container, Row, Col, Card } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,7 +23,8 @@ function AdminLogin() {
             formData.append("email", loginDetails.email);
             formData.append("password", loginDetails.password);
 
-            axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_admin_login", formData)
+
+            axios.post("https://antorithin.pythonanywhere.com/admin/login", formData)
                 .then((response) => {
 
                     console.log(response);
@@ -35,6 +34,7 @@ function AdminLogin() {
 
                         alert("Login Successful");
                        navigate("/admin/registerexperts");
+                       localStorage.setItem("admin",JSON.stringify(response.data))
 
                 }else{
                     alert("Invalid Output");
@@ -71,10 +71,3 @@ function AdminLogin() {
     </div>
 }
 export default AdminLogin
-
-
-
-
-
-
-
