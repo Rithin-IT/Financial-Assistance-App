@@ -25,10 +25,10 @@ function Register() {
 
             const formData = new FormData();
             formData.append("name", name);
-            formData.append("email", email);
+            formData.append("email", email);    
             formData.append("password", password);
 
-            axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_user_register', formData)
+            axios.post('https://antorithin.pythonanywhere.com/user/register', formData)
                 .then((res) => {
                     console.log(res)
                     if (res.data.status === "success") {

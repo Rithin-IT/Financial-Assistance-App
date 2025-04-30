@@ -88,24 +88,26 @@ const navigate = useNavigate();
             formData.append("user_id", UserId.id);
 
             formData.append("data", JSON.stringify(inputvalue))
-
-            axios.post('https://agaram.academy/api/b4/action.php?request=ai_finance_update_user_profile', formData)
+            const headers={'Authorization':`Bearer ${UserId.token}`}
+            axios.post('https://antorithin.pythonanywhere.com/user/profile',formData,{headers})
                 .then((res) => {
+                    console.log(res)
                 });
                 alert("Submitted Successfully")
-                navigate('/showuserdetails')
+                    navigate('/showuserdetails')
         }
 
     }
 
     const getApi = () => {
 
-        axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${UserId.id}`)
+        const headers={'Authorization':`Bearer ${UserId.token}`}
 
+        axios.get(`https://antorithin.pythonanywhere.com/user/getprofile/${UserId.id}`,{headers})
             .then((res) => {
+                console.log(res.data.data.data)
                 let getData = res.data.data.data
                 setInputValue(JSON.parse(getData))
-
             })
     }
 

@@ -25,7 +25,7 @@ function Login() {
         formData.append("email", loginDetails.email);
         formData.append("password", loginDetails.password);
 
-        axios.post("https://agaram.academy/api/b4/action.php?request=ai_finance_user_login", formData)
+        axios.post("https://antorithin.pythonanywhere.com/user/login", formData)
             .then((response) => {
                 
                 console.log(response);
@@ -34,9 +34,7 @@ function Login() {
                 if (response.data.status === "success") {
                   
                     alert("Login Successful");
-
                 
-
                     const userData = response.data.data
                     dispatch(setLoginUsers(userData));
                     localStorage.setItem("user",JSON.stringify(userData))

@@ -21,7 +21,7 @@ function FinanceAi() {
 
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
-  const [inputValue, setInputValue] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const [generate, setRegenerate] = useState("generate")
 
   const cx = "84c171dacf1aa43c1"
@@ -43,18 +43,19 @@ function FinanceAi() {
 
 
   const getApi = () => {
+  
+          axios.get(`https://antorithin.pythonanywhere.com/user/getprofile/${userId.id}`)
+              .then((res) => {
+                  console.log(res.data.data.data)
+                  let getData = res.data.data.data
+                  console.log(getData
+                                      )
+                  setInputValue(JSON.parse(getData))
+              })
+ }
 
-    axios.get(`https://agaram.academy/api/b4/action.php?request=ai_finance_get_user_profile&user_id=${userId.id}`)
-
-      .then((res) => {
-        let getData = res.data.data.data
-        setInputValue(JSON.parse(getData))
-
-      })
-  }
   useEffect(() => {
     getApi();
-    run();
   }, []);
 
   const edit = () => {
@@ -82,21 +83,20 @@ function FinanceAi() {
         6.Provide a disclaimer regarding financial advice and the importance of consulting a professional.
         7. Output needs to look good like real time web application.
         8. Output response will be HTML format only and avoid text which are placed outside HTML
-        9. donot use $ use Rs with value
-       
-        
-       
-           
+        9. donot use $ use Rs with value       
             ${JSON.stringify(inputValue)}`;
 
     const result = await model.generateContent(prompt);
-    console.log("Summary Response:", result.response.text());
     const responseText = result.response.text().replace(/```html/g, "").replace(/```/g, "");
     setRegenerate("generated")
     setSummary(responseText);
     setLoading(false);
 
   }
+
+  useEffect(() => {
+    run();
+  }, []);
   
   return <div>
 
